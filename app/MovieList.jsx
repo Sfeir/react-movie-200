@@ -1,25 +1,26 @@
 var React = require('react');
+var Movie = require('./Movie.jsx');
+
+var MOVIES = [
+  {
+    titre: 'AVATAR',
+    afficheUrl: 'img/avatar.jpg',
+    acteurs: 'Bruce Willis, Bruce Willis & Bruce Willis',
+    synopsis: 'Il se passe des trucs dans ce film'
+  },
+  {
+    titre: 'REC',
+    afficheUrl: 'img/rec.jpg',
+    acteurs: "Des gens, et d'autres gens.",
+    synopsis: 'Il se passe aussi des trucs dans ce film'
+  }
+]
 
 function MovieList () {
   return (
     <ul className="thumbnails list-unstyled">
-        <li className="col-md-12 row">
-            <img src="img/avatar.jpg" className="col-md-2" />
-            <div className="caption">
-                <h3>AVATAR</h3>
-                <p><b>Acteurs : </b>Bruce Willis, Bruce Willis & Bruce Willis</p>
-                <p><b>Synopsis : </b>Il se passe des trucs dans ce film</p>
-            </div>
-        </li>
-
-        <li className="col-md-12 row">
-            <img src="img/rec.jpg" className="col-md-2" />
-            <div className="caption">
-                <h3>REC</h3>
-                <p><b>Acteurs : </b>Des gens, et d'autres gens.</p>
-                <p><b>Synopsis : </b>Il se passe aussi des trucs dans ce film</p>
-            </div>
-        </li>
+      <Movie film={MOVIES[0]} />
+      <Movie film={MOVIES[1]} />
     </ul>
   );
 }
