@@ -3,12 +3,14 @@ var Movie = require('./Movie.jsx');
 
 var MOVIES = [
   {
+    id: 1,
     titre: 'AVATAR',
     afficheUrl: 'img/avatar.jpg',
     acteurs: 'Bruce Willis, Bruce Willis & Bruce Willis',
     synopsis: 'Il se passe des trucs dans ce film'
   },
   {
+    id: 2,
     titre: 'REC',
     afficheUrl: 'img/rec.jpg',
     acteurs: "Des gens, et d'autres gens.",
@@ -17,10 +19,13 @@ var MOVIES = [
 ]
 
 function MovieList () {
+  var movies = MOVIES.map(function (movie) {
+    return <Movie key={movie.id} film={movie} />
+  });
+
   return (
     <ul className="thumbnails list-unstyled">
-      <Movie film={MOVIES[0]} />
-      <Movie film={MOVIES[1]} />
+      {movies}
     </ul>
   );
 }
