@@ -39,10 +39,21 @@ var MovieList = React.createClass({
     }, 1000, this);
   },
 
+  onMovieDeletion: function (movieId) {
+    var filteredMovieList = this.state.movies.filter(function (movie) {
+      return movie.id !== movieId;
+    });
+
+    this.setState({
+      movies: filteredMovieList
+    });
+  },
+
   render: function () {
     var movies = this.state.movies;
+    var onMovieDeletion = this.onMovieDeletion;
     var moviesTag = movies.map(function (movie) {
-      return <Movie film={movie} />
+      return <Movie film={movie} onMovieDeletion={onMovieDeletion} />
     });
     var content;
 
