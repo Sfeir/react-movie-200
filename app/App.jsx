@@ -25,7 +25,8 @@ var App = React.createClass({
   getInitialState: function () {
     return {
       movies: [],
-      loadingMovies: false
+      loadingMovies: false,
+      searchKey: ''
     }
   },
 
@@ -52,13 +53,24 @@ var App = React.createClass({
     });
   },
 
+  onSearch: function (searchKey) {
+    this.setState({
+      searchKey: searchKey
+    });
+  },
+
   render: function () {
+    var searchKey = this.state.searchKey,
+        displayedMovies = this.state.movies.filter(function (movie) {
+          return movie.titre.toLowerCase().match(searchKey.toLowerCase());
+        });
+
     return (
       <div>
         <Header />
-        <SearchBar />
+        <SearchBar onSearch={this.onSearch} />
         <MovieList
-            movies={this.state.movies}
+            movies={displayedMovies}
             loadingMovies={this.state.loadingMovies}
             onMovieDeletion={this.onMovieDeletion} />
       </div>
