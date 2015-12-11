@@ -60,17 +60,13 @@ var App = React.createClass({
   },
 
   render: function () {
-    var searchKey = this.state.searchKey,
-        displayedMovies = this.state.movies.filter(function (movie) {
-          return movie.titre.toLowerCase().match(searchKey.toLowerCase());
-        });
-
     return (
       <div>
         <Header />
         <SearchBar onSearch={this.onSearch} />
         <MovieList
-            movies={displayedMovies}
+            movies={this.state.movies}
+            searchKey={this.state.searchKey}
             loadingMovies={this.state.loadingMovies}
             onMovieDeletion={this.onMovieDeletion} />
       </div>
