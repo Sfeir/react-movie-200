@@ -10,3 +10,11 @@ header {
 .search-bar-container {
   margin: 15px 0;
 }
+
+.movie-form div {
+  margin-bottom: 15px;
+}
+
+.movie-form h3 {
+  margin: 5px 0;
+}

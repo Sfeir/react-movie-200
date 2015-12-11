@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Header = require('./Header.jsx');
 var MovieList = require('./MovieList.jsx');
 var SearchBar = require('./SearchBar.jsx');
+var MovieForm = require('./MovieForm.jsx');
 
 var MOVIES = [
   {
@@ -64,6 +65,7 @@ var App = React.createClass({
       <div>
         <Header />
         <SearchBar onSearch={this.onSearch} />
+        <MovieForm />
         <MovieList
             movies={this.state.movies}
             searchKey={this.state.searchKey}
