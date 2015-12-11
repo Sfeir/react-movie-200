@@ -19,14 +19,29 @@ var MOVIES = [
 ]
 
 var MovieList = React.createClass({
+  getInitialState: function () {
+    return {
+      movies: []
+    }
+  },
+
+  componentWillMount: function () {
+    setTimeout(function (context) {
+      context.setState({
+        movies: MOVIES
+      });
+    }, 1000, this);
+  },
+
   render: function () {
-    var movies = MOVIES.map(function (movie) {
+    var movies = this.state.movies;
+    var moviesTag = movies.map(function (movie) {
       return <Movie film={movie} />
     });
 
     return (
       <ul className="thumbnails list-unstyled">
-        {movies}
+        {moviesTag}
       </ul>
     );
   }
