@@ -20,7 +20,7 @@ var MOVIES = [
 
 function MovieList () {
   var movies = MOVIES.map(function (movie) {
-    return <Movie key={movie.id} film={movie} />
+    return <Movie film={movie} />
   });
 
   return (
