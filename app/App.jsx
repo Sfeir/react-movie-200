@@ -4,6 +4,7 @@ var Header = require('./Header.jsx');
 var MovieList = require('./MovieList.jsx');
 var SearchBar = require('./SearchBar.jsx');
 var MovieAPI = require('./api/MovieAPI');
+var MovieForm = require('./MovieForm.jsx');
 
 var App = React.createClass({
   getInitialState: function () {
@@ -48,6 +49,7 @@ var App = React.createClass({
       <div>
         <Header />
         <SearchBar onSearch={this.onSearch} />
+        <MovieForm />
         <MovieList
             movies={this.state.movies}
             searchKey={this.state.searchKey}
