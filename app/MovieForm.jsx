@@ -9,6 +9,14 @@ var MovieForm = React.createClass({
       acteurs: this.refs.movieActors.value,
       synopsis: this.refs.movieSynopsis.value,
     });
+
+    this.resetForm();
+  },
+
+  resetForm: function () {
+    this.refs.movieTitle.value = '';
+    this.refs.movieActors.value = '';
+    this.refs.movieSynopsis.value = '';
   },
 
   render: function () {
