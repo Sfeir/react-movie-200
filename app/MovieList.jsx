@@ -18,16 +18,18 @@ var MOVIES = [
   }
 ]
 
-function MovieList () {
-  var movies = MOVIES.map(function (movie) {
-    return <Movie film={movie} />
-  });
+var MovieList = React.createClass({
+  render: function () {
+    var movies = MOVIES.map(function (movie) {
+      return <Movie film={movie} />
+    });
 
-  return (
-    <ul className="thumbnails list-unstyled">
-      {movies}
-    </ul>
-  );
-}
+    return (
+      <ul className="thumbnails list-unstyled">
+        {movies}
+      </ul>
+    );
+  }
+});
 
 module.exports = MovieList;
