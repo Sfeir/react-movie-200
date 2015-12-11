@@ -7,10 +7,13 @@ function Movie (props) {
   return (
     <li className="col-md-12">
       <img src={afficheUrl} className="col-md-2" />
-      <div className="caption">
+      <div className="caption pull-left">
         <h3>{film.titre}</h3>
         <p><b>Acteurs : </b>{film.acteurs}</p>
         <p><b>Synopsis : </b>{film.synopsis}</p>
+      </div>
+      <div className="pull-right">
+        <button className="btn btn-default">&times;</button>
       </div>
     </li>
   );
