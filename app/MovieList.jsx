@@ -21,14 +21,20 @@ var MOVIES = [
 var MovieList = React.createClass({
   getInitialState: function () {
     return {
-      movies: []
+      movies: [],
+      loading: false
     }
   },
 
   componentWillMount: function () {
+    this.setState({
+      loading: true
+    });
+
     setTimeout(function (context) {
       context.setState({
-        movies: MOVIES
+        movies: MOVIES,
+        loading: false
       });
     }, 1000, this);
   },
@@ -38,10 +44,17 @@ var MovieList = React.createClass({
     var moviesTag = movies.map(function (movie) {
       return <Movie film={movie} />
     });
+    var content;
+
+    if (this.state.loading) {
+      content = <li>Chargement de la liste des films en cours</li>
+    } else {
+      content = moviesTag;
+    }
 
     return (
       <ul className="thumbnails list-unstyled">
-        {moviesTag}
+        {content}
       </ul>
     );
   }
