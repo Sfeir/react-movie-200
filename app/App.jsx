@@ -60,12 +60,32 @@ var App = React.createClass({
     });
   },
 
+  addMovie: function (movie) {
+    var newMovie = {
+      titre: movie.titre,
+      acteurs: movie.acteurs,
+      synopsis: movie.synopsis
+    };
+    var ids = this.state.movies.map(function (movie) {
+      return movie.id;
+    });
+    var maxId = Math.max.apply(null, ids) || 0;
+
+    newMovie.id = maxId + 1;
+
+    var newMovieList = this.state.movies.concat([newMovie]);
+
+    this.setState({
+      movies: newMovieList
+    });
+  },
+
   render: function () {
     return (
       <div>
         <Header />
         <SearchBar onSearch={this.onSearch} />
-        <MovieForm />
+        <MovieForm onMovieFormSaved={this.addMovie} />
         <MovieList
             movies={this.state.movies}
             searchKey={this.state.searchKey}
