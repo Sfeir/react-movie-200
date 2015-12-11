@@ -6,3 +6,7 @@ header {
 .thumbnails li {
   margin-bottom: 15px;
 }
+
+.search-bar-container {
+  margin: 15px 0;
+}
