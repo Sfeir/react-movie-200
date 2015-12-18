@@ -1,8 +1,6 @@
 var React = require('react');
 var Movie = require('./Movie.jsx');
 
-
-
 var MovieList = React.createClass({
   shouldComponentUpdate: function (nextProps) {
     return this.props.searchKey !== nextProps.searchKey || this.props.movies !== nextProps.movies;
@@ -13,7 +11,7 @@ var MovieList = React.createClass({
     var onMovieDeletion = this.props.onMovieDeletion;
     var searchKey = this.props.searchKey;
     var moviesTag = movies.filter(function (movie) {
-                        return movie.titre.toLowerCase().match(searchKey.toLowerCase());
+                        return movie.title.toLowerCase().match(searchKey.toLowerCase());
                       })
                       .map(function (movie) {
                         return <Movie key={movie.id} film={movie} onMovieDeletion={onMovieDeletion} />
