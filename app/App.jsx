@@ -54,6 +54,26 @@ var App = React.createClass({
     });
   },
 
+  onMovieModification: function (movieId, newData) {
+    var newMovieList = this.state.movies.map(function (movie) {
+      if (movie.id === movieId) {
+        return {
+          id: movie.id,
+          afficheUrl: movie.afficheUrl,
+          titre: newData.titre,
+          acteurs: newData.acteurs,
+          synopsis: newData.synopsis
+        };
+      } else {
+        return movie;
+      }
+    });
+
+    this.setState({
+      movies: newMovieList
+    });
+  },
+
   onSearch: function (searchKey) {
     this.setState({
       searchKey: searchKey
@@ -90,7 +110,8 @@ var App = React.createClass({
             movies={this.state.movies}
             searchKey={this.state.searchKey}
             loadingMovies={this.state.loadingMovies}
-            onMovieDeletion={this.onMovieDeletion} />
+            onMovieDeletion={this.onMovieDeletion}
+            onMovieModification={this.onMovieModification} />
       </div>
     );
   }
