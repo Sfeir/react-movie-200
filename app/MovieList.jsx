@@ -1,8 +1,6 @@
 var React = require('react');
 var Movie = require('./Movie.jsx');
 
-
-
 var MovieList = React.createClass({
   render: function () {
     var movies = this.props.movies;
