@@ -15,7 +15,7 @@ var Movie = React.createClass({
 
   render: function () {
     var film = this.props.film,
-      afficheUrl = film.afficheUrl || 'img/no-poster.jpg',
+      afficheUrl = film.poster || 'img/no-poster.jpg',
       actionButtons;
 
     if (this.state.selected) {
@@ -31,16 +31,19 @@ var Movie = React.createClass({
     return (
       <li className="col-md-12" onClick={this.onSelect}>
         <img src={afficheUrl} className="col-md-2" />
-        <div className="caption pull-left">
-          <h3>{film.titre}</h3>
-          <p><b>Acteurs : </b>{film.acteurs}</p>
+        <div className="caption col-md-8 pull-left">
+          <h3>{film.title}</h3>
+          <p><b>Année de sortie : </b>{film.releaseYear}</p>
+          <p><b>Réalisateurs : </b>{film.directors}</p>
+          <p><b>Acteurs : </b>{film.actors}</p>
           <p><b>Synopsis : </b>{film.synopsis}</p>
         </div>
-        {actionButtons}
+        <div className="pull-right">
+          {actionButtons}
+        </div>
       </li>
     );
   }
 });
-
 
 module.exports = Movie;
