@@ -7,6 +7,10 @@ header {
   margin-bottom: 15px;
 }
 
+.caption h3 {
+  margin-top: 0;
+}
+
 .search-bar-container {
   margin: 15px 0;
 }

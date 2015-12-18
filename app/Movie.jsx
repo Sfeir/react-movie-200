@@ -63,9 +63,11 @@ var Movie = React.createClass({
     } else {
       content = (
         <div>
-          <div className="caption pull-left">
-            <img src={afficheUrl} className="col-md-2" />
+          <img src={afficheUrl} className="col-md-2" />
+          <div className="caption col-md-8 pull-left">
             <h3>{film.title}</h3>
+            <p><b>Année de sortie : </b>{film.releaseYear}</p>
+            <p><b>Réalisateurs : </b>{film.directors}</p>
             <p><b>Acteurs : </b>{film.actors}</p>
             <p><b>Synopsis : </b>{film.synopsis}</p>
           </div>
@@ -81,6 +83,5 @@ var Movie = React.createClass({
     );
   }
 });
-
 
 module.exports = Movie;
