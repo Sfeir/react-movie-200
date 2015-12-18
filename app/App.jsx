@@ -28,12 +28,16 @@ var App = React.createClass({
   },
 
   onMovieDeletion: function (movieId) {
-    var filteredMovieList = this.state.movies.filter(function (movie) {
-      return movie.id !== movieId;
-    });
+    var ctx = this;
 
-    this.setState({
-      movies: filteredMovieList
+    MovieAPI.removeMovie(movieId, function () {
+      var filteredMovieList = ctx.state.movies.filter(function (movie) {
+        return movie.id !== movieId;
+      });
+
+      ctx.setState({
+        movies: filteredMovieList
+      });
     });
   },
 
