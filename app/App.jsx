@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Header = require('./Header.jsx');
 var MovieList = require('./MovieList.jsx');
 var SearchBar = require('./SearchBar.jsx');
+var MovieAPI = require('./api/MovieAPI');
 
 var MOVIES = [
   {
@@ -31,16 +32,18 @@ var App = React.createClass({
   },
 
   componentWillMount: function () {
+    var ctx = this;
+
     this.setState({
       loadingMovies: true
     });
 
-    setTimeout(function (context) {
-      context.setState({
-        movies: MOVIES,
+    MovieAPI.getMovieList(function (movies) {
+      ctx.setState({
+        movies: movies,
         loadingMovies: false
-      });
-    }, 1000, this);
+      })
+    });
   },
 
   onMovieDeletion: function (movieId) {
@@ -62,7 +65,7 @@ var App = React.createClass({
   render: function () {
     var searchKey = this.state.searchKey,
         displayedMovies = this.state.movies.filter(function (movie) {
-          return movie.titre.toLowerCase().match(searchKey.toLowerCase());
+          return movie.title.toLowerCase().match(searchKey.toLowerCase());
         });
 
     return (
