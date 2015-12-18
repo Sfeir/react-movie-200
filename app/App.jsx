@@ -4,6 +4,7 @@ var Header = require('./Header.jsx');
 var MovieList = require('./MovieList.jsx');
 var SearchBar = require('./SearchBar.jsx');
 var MovieForm = require('./MovieForm.jsx');
+var MovieAPI = require('./api/MovieAPI');
 
 var MOVIES = [
   {
@@ -32,16 +33,18 @@ var App = React.createClass({
   },
 
   componentWillMount: function () {
+    var ctx = this;
+
     this.setState({
       loadingMovies: true
     });
 
-    setTimeout(function (context) {
-      context.setState({
-        movies: MOVIES,
+    MovieAPI.getMovieList(function (movies) {
+      ctx.setState({
+        movies: movies,
         loadingMovies: false
-      });
-    }, 1000, this);
+      })
+    });
   },
 
   onMovieDeletion: function (movieId) {
