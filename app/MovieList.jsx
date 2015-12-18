@@ -1,5 +1,6 @@
 var React = require('react');
 var Movie = require('./Movie.jsx');
+var MovieAPI = require('./api/MovieAPI');
 
 var MOVIES = [
   {
@@ -27,16 +28,18 @@ var MovieList = React.createClass({
   },
 
   componentWillMount: function () {
+    var ctx = this;
+
     this.setState({
       loading: true
     });
 
-    setTimeout(function (context) {
-      context.setState({
-        movies: MOVIES,
+    MovieAPI.getMovieList(function (movies) {
+      ctx.setState({
+        movies: movies,
         loading: false
-      });
-    }, 1000, this);
+      })
+    });
   },
 
   onMovieDeletion: function (movieId) {
