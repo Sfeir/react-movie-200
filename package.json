@@ -18,6 +18,7 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "express": "^4.13.3",
-    "react": "^0.14.1"
+    "react": "^0.14.1",
+    "react-dom": "^0.14.1"
   }
 }
