@@ -1,9 +1,9 @@
 ReactMovie
 ============
 
-Librairie de films développé avec AngularJS.
+Librairie de films développé avec ReactJS.
 
-Cette application sert de support pour la formation AngularJS au SfeirSchool
+Cette application sert de support pour la formation ReactJS au SfeirSchool
 
 ## Pré-requis
 * Installer NodeJS
