@@ -2,23 +2,6 @@ var React = require('react');
 var Movie = require('./Movie.jsx');
 var MovieAPI = require('./api/MovieAPI');
 
-var MOVIES = [
-  {
-    id: 1,
-    titre: 'AVATAR',
-    afficheUrl: 'img/avatar.jpg',
-    acteurs: 'Bruce Willis, Bruce Willis & Bruce Willis',
-    synopsis: 'Il se passe des trucs dans ce film'
-  },
-  {
-    id: 2,
-    titre: 'REC',
-    afficheUrl: 'img/rec.jpg',
-    acteurs: "Des gens, et d'autres gens.",
-    synopsis: 'Il se passe aussi des trucs dans ce film'
-  }
-]
-
 var MovieList = React.createClass({
   getInitialState: function () {
     return {
