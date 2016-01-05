@@ -15,7 +15,7 @@ function Movie (props) {
         <p><b>Synopsis : </b>{film.synopsis}</p>
       </div>
       <div className="pull-right">
-        <button className="btn btn-default" onClick={props.onMovieDeletion.bind(null, film.id)}>&times;</button>
+        <button className="btn btn-danger" onClick={props.onMovieDeletion.bind(null, film.id)}><i className="glyphicon glyphicon-trash"></i></button>
       </div>
     </li>
   );
