@@ -11,18 +11,16 @@ var MovieList = React.createClass({
   },
 
   componentWillMount: function () {
-    var ctx = this;
-
     this.setState({
       loading: true
     });
 
     MovieAPI.getMovieList(function (movies) {
-      ctx.setState({
+      this.setState({
         movies: movies,
         loading: false
       })
-    });
+    }.bind(this));
   },
 
   render: function () {
