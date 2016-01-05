@@ -16,18 +16,16 @@ var App = React.createClass({
   },
 
   componentWillMount: function () {
-    var ctx = this;
-
     this.setState({
       loadingMovies: true
     });
 
     MovieAPI.getMovieList(function (movies) {
-      ctx.setState({
+      this.setState({
         movies: movies,
         loadingMovies: false
       })
-    });
+    }.bind(this));
   },
 
   onMovieDeletion: function (movieId) {
