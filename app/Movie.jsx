@@ -41,7 +41,7 @@ var Movie = React.createClass({
   render: function () {
     var film = this.props.film,
       onMovieModification = this.props.onMovieModification,
-      afficheUrl = film.afficheUrl || 'img/no-poster.jpg',
+      afficheUrl = film.poster || 'img/no-poster.jpg',
       content,
       actionButtons;
 
@@ -65,8 +65,8 @@ var Movie = React.createClass({
         <div>
           <div className="caption pull-left">
             <img src={afficheUrl} className="col-md-2" />
-            <h3>{film.titre}</h3>
-            <p><b>Acteurs : </b>{film.acteurs}</p>
+            <h3>{film.title}</h3>
+            <p><b>Acteurs : </b>{film.actors}</p>
             <p><b>Synopsis : </b>{film.synopsis}</p>
           </div>
           {actionButtons}
