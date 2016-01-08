@@ -17,6 +17,7 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
+    "axios": "^0.8.1",
     "body-parser": "^1.14.2",
     "bootstrap": "^3.3.5",
     "express": "^4.13.3",
@@ -25,7 +26,6 @@
     "lodash": "^3.10.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.1",
-    "react-router": "^1.0.2",
-    "superagent": "^1.6.1"
+    "react-router": "^1.0.2"
   }
 }
