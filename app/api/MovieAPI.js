@@ -14,8 +14,13 @@ function addMovie (movie) {
             .then(function (response) { return response.data; });
 }
 
+function updateMovie (movie) {
+  return axios.put('/server/api/movies/' + movie.id, movie);
+}
+
 module.exports = {
   getMovieList: getMovieList,
   removeMovie: removeMovie,
-  addMovie: addMovie
+  addMovie: addMovie,
+  updateMovie: updateMovie
 };

@@ -1,5 +1,6 @@
 var React = require('react');
 var MovieForm = require('./MovieForm.jsx');
+var _ = require('lodash');
 
 var Movie = React.createClass({
   getInitialState: function () {
@@ -33,7 +34,9 @@ var Movie = React.createClass({
   },
 
   onMovieModification: function (newData) {
-    this.props.onMovieModification(this.props.film.id, newData);
+    var updatedMovie = _.merge(this.props.film, newData);
+
+    this.props.onMovieModification(updatedMovie);
 
     this.closeEditionForm();
   },
@@ -58,6 +61,7 @@ var Movie = React.createClass({
 
     if (this.state.editing) {
       content = <MovieForm edition={true}
+                          movie={this.props.film}
                           onCancel={this.onCancelModification}
                           onMovieFormSaved={this.onMovieModification} />
     } else {

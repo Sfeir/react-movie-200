@@ -1,12 +1,28 @@
 var React = require('react');
 
 var MovieForm = React.createClass({
+  getDefaultProps: function () {
+    return {
+      movie: {
+        title: '',
+        actors: '',
+        synopsis: ''
+      }
+    };
+  },
+
+  componentDidMount: function () {
+    this.refs.movieTitle.value = this.props.movie.title;
+    this.refs.movieActors.value = this.props.movie.actors;
+    this.refs.movieSynopsis.value = this.props.movie.synopsis;
+  },
+
   onSubmit: function (e) {
     e.preventDefault();
 
     this.props.onMovieFormSaved({
-      titre: this.refs.movieTitle.value,
-      acteurs: this.refs.movieActors.value,
+      title: this.refs.movieTitle.value,
+      actors: this.refs.movieActors.value,
       synopsis: this.refs.movieSynopsis.value,
     });
 

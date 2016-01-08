@@ -40,24 +40,20 @@ var App = React.createClass({
     }.bind(this));
   },
 
-  onMovieModification: function (movieId, newData) {
-    var newMovieList = this.state.movies.map(function (movie) {
-      if (movie.id === movieId) {
-        return {
-          id: movie.id,
-          afficheUrl: movie.afficheUrl,
-          titre: newData.titre,
-          acteurs: newData.acteurs,
-          synopsis: newData.synopsis
-        };
-      } else {
-        return movie;
-      }
-    });
+  onMovieModification: function (newData) {
+    MovieAPI.updateMovie(newData).then(function () {
+      var newMovieList = this.state.movies.map(function (movie) {
+        if (movie.id === newData.id) {
+          return newData;
+        } else {
+          return movie;
+        }
+      });
 
-    this.setState({
-      movies: newMovieList
-    });
+      this.setState({
+        movies: newMovieList
+      });
+    }.bind(this));
   },
 
   onSearch: function (searchKey) {
@@ -68,14 +64,14 @@ var App = React.createClass({
 
   addMovie: function (movie) {
     var newMovie = {
-      title: movie.titre,
-      actors: movie.acteurs,
+      title: movie.title,
+      actors: movie.actors,
       synopsis: movie.synopsis
     };
 
     MovieAPI.addMovie(newMovie).then(function (movie) {
       var newMovieList = this.state.movies.concat([movie]);
-      
+
       this.setState({
         movies: newMovieList
       });
