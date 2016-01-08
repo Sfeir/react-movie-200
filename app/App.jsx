@@ -20,7 +20,7 @@ var App = React.createClass({
       loadingMovies: true
     });
 
-    MovieAPI.getMovieList(function (movies) {
+    MovieAPI.getMovieList().then(function (movies) {
       this.setState({
         movies: movies,
         loadingMovies: false
