@@ -81,7 +81,7 @@ var App = React.createClass({
 
     newMovie.id = maxId + 1;
 
-    var newMovieList = this.state.movies.concat([newMovie]);
+    var newMovieList = [newMovie].concat(this.state.movies);
 
     this.setState({
       movies: newMovieList
