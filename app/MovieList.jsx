@@ -24,17 +24,15 @@ var MovieList = React.createClass({
   },
 
   onMovieDeletion: function (movieId) {
-    var ctx = this;
-
-    MovieAPI.removeMovie(movieId, function () {
-      var filteredMovieList = ctx.state.movies.filter(function (movie) {
+    MovieAPI.removeMovie(movieId).then(function () {
+      var filteredMovieList = this.state.movies.filter(function (movie) {
         return movie.id !== movieId;
       });
 
-      ctx.setState({
+      this.setState({
         movies: filteredMovieList
       });
-    });
+    }.bind(this));
   },
 
   render: function () {
