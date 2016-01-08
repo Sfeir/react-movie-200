@@ -72,18 +72,14 @@ var App = React.createClass({
       actors: movie.acteurs,
       synopsis: movie.synopsis
     };
-    var ids = this.state.movies.map(function (movie) {
-      return movie.id;
-    });
-    var maxId = Math.max.apply(null, ids) || 0;
 
-    newMovie.id = maxId + 1;
-
-    var newMovieList = [newMovie].concat(this.state.movies);
-
-    this.setState({
-      movies: newMovieList
-    });
+    MovieAPI.addMovie(newMovie).then(function (movie) {
+      var newMovieList = this.state.movies.concat([movie]);
+      
+      this.setState({
+        movies: newMovieList
+      });
+    }.bind(this));
   },
 
   render: function () {
