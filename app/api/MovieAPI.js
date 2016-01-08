@@ -1,13 +1,8 @@
-var request = require('superagent');
+var axios = require('axios');
 
 function getMovieList (cb) {
-  request
-  .get('/server/api/movies')
-  .end(function (err, res) {
-    var movies = JSON.parse(res.text);
-
-    cb(movies);
-  });
+  return axios.get('/server/api/movies')
+            .then(function (response) { return response.data; });
 }
 
 function removeMovie (id, cb) {
