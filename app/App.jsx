@@ -70,8 +70,8 @@ var App = React.createClass({
 
   addMovie: function (movie) {
     var newMovie = {
-      titre: movie.titre,
-      acteurs: movie.acteurs,
+      title: movie.titre,
+      actors: movie.acteurs,
       synopsis: movie.synopsis
     };
     var ids = this.state.movies.map(function (movie) {
