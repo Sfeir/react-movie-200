@@ -66,24 +66,26 @@ var Movie = React.createClass({
                           onMovieFormSaved={this.onMovieModification} />
     } else {
       content = (
-        <div>
-          <img src={afficheUrl} className="col-md-2" />
-          <div className="caption col-md-8 pull-left">
-            <h3>{film.title}</h3>
+        <div className="row">
+          <img src={afficheUrl} className="col-md-3" />
+          <div className="caption col-md-9">
+            <h3>{film.title} {actionButtons} </h3>
             <p><b>Année de sortie : </b>{film.releaseYear}</p>
             <p><b>Réalisateurs : </b>{film.directors}</p>
             <p><b>Acteurs : </b>{film.actors}</p>
             <p><b>Synopsis : </b>{film.synopsis}</p>
+            <p><b>Vu le : </b>{film.lastViewDate}</p>
+            <p><b>Prix : </b>{film.price}</p>
+            <p><b>Note : </b>{film.rate}</p>
           </div>
-          {actionButtons}
         </div>
       );
     }
 
     return (
-      <li className="col-md-12" onClick={this.onSelect}>
+      <div>
         {content}
-      </li>
+      </div>
     );
   }
 });

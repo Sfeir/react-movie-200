@@ -18,11 +18,14 @@ var MovieList = React.createClass({
                         return <li className="list-group-item" key={movie.id}><a>{movie.title}</a></li>;
                       });
     var content;
+    var firstMovie;
 
     if (this.props.loadingMovies) {
       content = <li>Chargement de la liste des films en cours</li>
+      firstMovie = false;
     } else {
       content = moviesTag;
+      firstMovie = <Movie film={movies[0]} />;
     }
 
     return (
@@ -33,6 +36,9 @@ var MovieList = React.createClass({
         <ul className="col-md-4 list-group">
           {content}
         </ul>
+        <div className="col-md-8">
+          {firstMovie}
+        </div>
       </div>
     );
   }
