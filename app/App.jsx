@@ -83,7 +83,6 @@ var App = React.createClass({
       <div>
         <Header />
         <SearchBar onSearch={this.onSearch} />
-        <MovieForm onMovieFormSaved={this.addMovie} />
         <MovieList
             movies={this.state.movies}
             searchKey={this.state.searchKey}

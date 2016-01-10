@@ -15,11 +15,7 @@ var MovieList = React.createClass({
                         return movie.title.toLowerCase().match(searchKey.toLowerCase());
                       })
                       .map(function (movie) {
-                        return <Movie
-                                    key={movie.id}
-                                    film={movie}
-                                    onMovieDeletion={onMovieDeletion}
-                                    onMovieModification={onMovieModification} />
+                        return <li className="list-group-item" key={movie.id}><a>{movie.title}</a></li>;
                       });
     var content;
 
@@ -30,9 +26,14 @@ var MovieList = React.createClass({
     }
 
     return (
-      <ul className="thumbnails list-unstyled">
-        {content}
-      </ul>
+      <div>
+        <header className="page-header">
+          <h1>Ma vidéothèque <small>{movies.length} films</small> <a className="btn btn-success" to="/movies/new">Ajouter</a></h1>
+        </header>
+        <ul className="col-md-4 list-group">
+          {content}
+        </ul>
+      </div>
     );
   }
 });
