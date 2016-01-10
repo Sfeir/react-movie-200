@@ -83,8 +83,9 @@ var App = React.createClass({
     return (
       <div>
         <Header />
-        {/* <Home /> */}
+        <Home />
 
+        {/*
         <SearchBar onSearch={this.onSearch} />
         <MovieList
             movies={this.state.movies}
@@ -92,6 +93,7 @@ var App = React.createClass({
             loadingMovies={this.state.loadingMovies}
             onMovieDeletion={this.onMovieDeletion}
             onMovieModification={this.onMovieModification} />
+        */}
       </div>
     );
   }
