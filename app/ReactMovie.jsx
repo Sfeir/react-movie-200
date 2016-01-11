@@ -91,6 +91,7 @@ var ReactMovie = React.createClass({
     return (
       <div>
         <Header />
+        <SearchBar onSearch={this.onSearch} />
         {childrenElement}
       </div>
     );
