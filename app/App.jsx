@@ -1,10 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var ReactMovie = require('./ReactMovie.jsx');
-var Home = require('./Home.jsx');
-var MovieList = require('./MovieList.jsx');
-var Movie = require('./Movie.jsx');
-var MovieForm = require('./MovieForm.jsx');
+var ReactMovie = require('./components/ReactMovie.jsx');
+var Home = require('./components/Home.jsx');
+var MovieList = require('./components/MovieList.jsx');
+var Movie = require('./components/Movie.jsx');
+var MovieForm = require('./components/MovieForm.jsx');
 
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
