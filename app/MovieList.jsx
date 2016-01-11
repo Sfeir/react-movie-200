@@ -28,7 +28,7 @@ var MovieList = React.createClass({
     return (
       <div>
         <header className="page-header">
-          <h1>Ma vidéothèque <small>{movies.length} films</small> <a className="btn btn-success" to="/movies/new">Ajouter</a></h1>
+          <h1>Ma vidéothèque <small>{movies.length} films</small> <Link to="/movie/new" className="btn btn-success">Ajouter</Link></h1>
         </header>
         <ul className="col-md-4 list-group">
           {content}
