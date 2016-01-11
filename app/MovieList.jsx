@@ -1,9 +1,9 @@
 var React = require('react');
-var Movie = require('./Movie.jsx');
+var Link = require('react-router').Link;
 
 var MovieList = React.createClass({
   shouldComponentUpdate: function (nextProps) {
-    return this.props.searchKey !== nextProps.searchKey || this.props.movies !== nextProps.movies;
+    return this.props.children !== nextProps.children ||this.props.searchKey !== nextProps.searchKey || this.props.movies !== nextProps.movies;
   },
 
   render: function () {
@@ -15,17 +15,14 @@ var MovieList = React.createClass({
                         return movie.title.toLowerCase().match(searchKey.toLowerCase());
                       })
                       .map(function (movie) {
-                        return <li className="list-group-item" key={movie.id}><a>{movie.title}</a></li>;
+                        return <li className="list-group-item" key={movie.id}><Link to={'/movie/' + movie.id}>{movie.title}</Link></li>;
                       });
     var content;
-    var firstMovie;
 
     if (this.props.loadingMovies) {
       content = <li>Chargement de la liste des films en cours</li>
-      firstMovie = false;
     } else {
       content = moviesTag;
-      firstMovie = <Movie film={movies[0]} />;
     }
 
     return (
@@ -37,7 +34,7 @@ var MovieList = React.createClass({
           {content}
         </ul>
         <div className="col-md-8">
-          {firstMovie}
+          {this.props.children}
         </div>
       </div>
     );

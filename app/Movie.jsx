@@ -1,12 +1,14 @@
 var React = require('react');
 var MovieForm = require('./MovieForm.jsx');
 var _ = require('lodash');
+var MovieApi = require('./api/MovieAPI');
 
 var Movie = React.createClass({
   getInitialState: function () {
     return {
       selected: false,
-      editing: false
+      editing: false,
+      movie: {}
     }
   },
 
@@ -34,17 +36,39 @@ var Movie = React.createClass({
   },
 
   onMovieModification: function (newData) {
-    var updatedMovie = _.merge(this.props.film, newData);
+    var updatedMovie = _.merge(this.state.movie, newData);
 
     this.props.onMovieModification(updatedMovie);
 
     this.closeEditionForm();
   },
 
+  fetchMovie: function () {
+    MovieApi.getMovie(this.props.params.id)
+      .then(function (movie) {
+        this.setState({
+          movie: movie
+        });
+      }.bind(this));
+  },
+
+  componentDidMount: function () {
+    this.fetchMovie();
+  },
+
+  componentDidUpdate: function (prevProps) {
+    let oldId = prevProps.params.id;
+    let newId = this.props.params.id;
+
+    if (newId && oldId !== newId) {
+      this.fetchMovie();
+    }
+  },
+
   render: function () {
-    var film = this.props.film,
+    var movie = this.state.movie,
       onMovieModification = this.props.onMovieModification,
-      afficheUrl = film.poster || 'img/no-poster.jpg',
+      afficheUrl = movie.poster || 'img/no-poster.jpg',
       content,
       actionButtons;
 
@@ -52,7 +76,7 @@ var Movie = React.createClass({
       actionButtons = (
         <div className="pull-right">
           <button className="btn btn-default" onClick={this.openEditionForm}><span className="glyphicon glyphicon-pencil"/></button>
-          <button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, film.id)}><i className="glyphicon glyphicon-trash"></i></button>
+          <button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, movie.id)}><i className="glyphicon glyphicon-trash"></i></button>
         </div>
       );
     } else {
@@ -61,7 +85,7 @@ var Movie = React.createClass({
 
     if (this.state.editing) {
       content = <MovieForm edition={true}
-                          movie={this.props.film}
+                          movie={this.state.movie}
                           onCancel={this.onCancelModification}
                           onMovieFormSaved={this.onMovieModification} />
     } else {
@@ -69,14 +93,14 @@ var Movie = React.createClass({
         <div className="row">
           <img src={afficheUrl} className="col-md-3" />
           <div className="caption col-md-9">
-            <h3>{film.title} {actionButtons} </h3>
-            <p><b>Année de sortie : </b>{film.releaseYear}</p>
-            <p><b>Réalisateurs : </b>{film.directors}</p>
-            <p><b>Acteurs : </b>{film.actors}</p>
-            <p><b>Synopsis : </b>{film.synopsis}</p>
-            <p><b>Vu le : </b>{film.lastViewDate}</p>
-            <p><b>Prix : </b>{film.price}</p>
-            <p><b>Note : </b>{film.rate}</p>
+            <h3>{movie.title} {actionButtons} </h3>
+            <p><b>Année de sortie : </b>{movie.releaseYear}</p>
+            <p><b>Réalisateurs : </b>{movie.directors}</p>
+            <p><b>Acteurs : </b>{movie.actors}</p>
+            <p><b>Synopsis : </b>{movie.synopsis}</p>
+            <p><b>Vu le : </b>{movie.lastViewDate}</p>
+            <p><b>Prix : </b>{movie.price}</p>
+            <p><b>Note : </b>{movie.rate}</p>
           </div>
         </div>
       );
