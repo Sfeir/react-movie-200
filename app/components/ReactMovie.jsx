@@ -80,19 +80,11 @@ var ReactMovie = React.createClass({
   },
 
   render: function () {
-    var childrenElement = React.cloneElement(
-      this.props.children,
-      {
-        movies: this.state.movies,
-        searchKey: this.state.searchKey
-      }
-    );
-
     return (
       <div>
         <Header />
         <SearchBar onSearch={this.onSearch} />
-        {childrenElement}
+        {this.props.children}
       </div>
     );
   }

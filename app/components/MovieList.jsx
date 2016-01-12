@@ -1,16 +1,41 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var MoviesStore = require('../stores/MoviesStore');
+var MoviesActionCreator = require('../actions/MoviesActionCreator');
+
 
 var MovieList = React.createClass({
-  shouldComponentUpdate: function (nextProps) {
-    return this.props.children !== nextProps.children ||this.props.searchKey !== nextProps.searchKey || this.props.movies !== nextProps.movies;
+  getInitialState: function () {
+    return {
+      movies: [],
+      searchKey: ''
+    };
+  },
+
+  componentWillMount: function () {
+    MoviesStore.addChangeListener(this.updateMovies);
+  },
+
+  componentDidMount: function () {
+    MoviesActionCreator.fetchMovies();
+  },
+
+  componentWillUnmount: function () {
+    MoviesStore.removeChangeListener(this.updateMovies);
+  },
+
+  updateMovies: function () {
+    var state = MoviesStore.getState();
+    this.setState({
+      movies : state.movies
+    });
   },
 
   render: function () {
-    var movies = this.props.movies;
+    var movies = this.state.movies;
     var onMovieDeletion = this.props.onMovieDeletion;
     var onMovieModification = this.props.onMovieModification;
-    var searchKey = this.props.searchKey;
+    var searchKey = this.state.searchKey;
     var moviesTag = movies.filter(function (movie) {
                         return movie.title.toLowerCase().match(searchKey.toLowerCase());
                       })
