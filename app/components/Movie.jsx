@@ -2,6 +2,8 @@ var React = require('react');
 var MovieForm = require('./MovieForm.jsx');
 var _ = require('lodash');
 var MovieApi = require('../api/MovieAPI');
+var MoviesStore = require('../stores/MoviesStore');
+var MoviesActionCreator = require('../actions/MoviesActionCreator');
 
 var Movie = React.createClass({
   getInitialState: function () {
@@ -43,17 +45,28 @@ var Movie = React.createClass({
     this.closeEditionForm();
   },
 
-  fetchMovie: function () {
-    MovieApi.getMovie(this.props.params.id)
-      .then(function (movie) {
-        this.setState({
-          movie: movie
-        });
-      }.bind(this));
+  componentWillMount: function () {
+    MoviesStore.addChangeListener(this.updateMovie);
   },
 
   componentDidMount: function () {
-    this.fetchMovie();
+    this.findMovie();
+  },
+
+  componentWillUnmount: function () {
+    MoviesStore.removeChangeListener(this.updateMovie);
+  },
+
+  findMovie: function () {
+    MoviesActionCreator.findMovie(this.props.params.id);
+  },
+
+  updateMovie: function () {
+    var state = MoviesStore.getState();
+
+    this.setState({
+        movie: state.movie
+    });
   },
 
   componentDidUpdate: function (prevProps) {
@@ -61,7 +74,7 @@ var Movie = React.createClass({
     let newId = this.props.params.id;
 
     if (newId && oldId !== newId) {
-      this.fetchMovie();
+      this.findMovie();
     }
   },
 

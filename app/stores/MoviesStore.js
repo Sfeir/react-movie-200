@@ -4,7 +4,8 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
 var state = {
-  movies: []
+  movies: [],
+  movie: {}
 };
 
 var MoviesStore = _.assign({}, EventEmitter.prototype, {
@@ -29,6 +30,9 @@ dispatcher.register(function (action) {
   switch(action.actionType) {
     case actionTypes.FETCH_MOVIES:
       state.movies = action.movies;
+      break;
+    case actionTypes.FIND_MOVIE:
+      state.movie = action.movie;
       break;
     default:
       return true;
