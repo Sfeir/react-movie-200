@@ -2,7 +2,7 @@ var webpack = require('webpack'),
     path = require('path');
 
 module.exports = {
-    devtools: 'eval',
+    devtool: 'eval-source-map',
     entry: [
         'webpack/hot/dev-server',
         'webpack-dev-server/client?http://localhost:8080',
