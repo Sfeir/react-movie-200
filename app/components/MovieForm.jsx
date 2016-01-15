@@ -25,14 +25,20 @@ var MovieForm = React.createClass({
   onSubmit: function (e) {
     e.preventDefault();
 
-    MoviesActionCreator.addMovie({
-      title: this.refs.movieTitle.value,
-      releaseYear: this.refs.movieReleaseYear.value,
-      directors: this.refs.movieDirectors.value,
-      actors: this.refs.movieActors.value,
-      synopsis: this.refs.movieSynopsis.value,
-      rate: this.refs.movieRate.value
-    });
+    var updatedMovie = {
+        title: this.refs.movieTitle.value,
+        releaseYear: this.refs.movieReleaseYear.value,
+        directors: this.refs.movieDirectors.value,
+        actors: this.refs.movieActors.value,
+        synopsis: this.refs.movieSynopsis.value,
+        rate: this.refs.movieRate.value
+    };
+
+    if (this.props.edition) {
+      this.props.onMovieFormSaved(updatedMovie);
+    } else {
+      MoviesActionCreator.addMovie(updatedMovie);
+    }
 
     this.resetForm();
   },

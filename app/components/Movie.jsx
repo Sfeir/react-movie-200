@@ -41,7 +41,7 @@ var Movie = React.createClass({
   onMovieModification: function (newData) {
     var updatedMovie = _.merge(this.state.movie, newData);
 
-    this.props.onMovieModification(updatedMovie);
+    MoviesActionCreator.updateMovie(updatedMovie);
 
     this.closeEditionForm();
   },
@@ -94,7 +94,7 @@ var Movie = React.createClass({
     if (this.state.selected) {
       actionButtons = (
         <div className="pull-right">
-          <button className="btn btn-default"><span className="glyphicon glyphicon-pencil"/></button>
+          <button className="btn btn-default" onClick={this.openEditionForm}><span className="glyphicon glyphicon-pencil"/></button>
           <button className="btn btn-danger" onClick={this.deleteMovie}><i className="glyphicon glyphicon-trash"></i></button>
         </div>
       );

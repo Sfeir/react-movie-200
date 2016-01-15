@@ -44,5 +44,14 @@ module.exports = {
           movieId: id
         });
       });
+  },
+  updateMovie: function (movie) {
+    MovieAPI.updateMovie(movie)
+      .then(function () {
+        dispatcher.dispatch({
+          actionType: actionTypes.UPDATE_MOVIE,
+          movie: movie
+        });
+      });
   }
 };
