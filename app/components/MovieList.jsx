@@ -7,8 +7,7 @@ var MoviesActionCreator = require('../actions/MoviesActionCreator');
 var MovieList = React.createClass({
   getInitialState: function () {
     return {
-      movies: [],
-      searchKey: ''
+      movies: []
     };
   },
 
@@ -27,7 +26,7 @@ var MovieList = React.createClass({
   updateMovies: function () {
     var state = MoviesStore.getState();
     this.setState({
-      movies : state.movies
+      movies : state.displayedMovies
     });
   },
 
@@ -35,11 +34,7 @@ var MovieList = React.createClass({
     var movies = this.state.movies;
     var onMovieDeletion = this.props.onMovieDeletion;
     var onMovieModification = this.props.onMovieModification;
-    var searchKey = this.state.searchKey;
-    var moviesTag = movies.filter(function (movie) {
-                        return movie.title.toLowerCase().match(searchKey.toLowerCase());
-                      })
-                      .map(function (movie) {
+    var moviesTag = movies.map(function (movie) {
                         return <li className="list-group-item" key={movie.id}><Link to={'/movie/' + movie.id}>{movie.title}</Link></li>;
                       });
     var content;

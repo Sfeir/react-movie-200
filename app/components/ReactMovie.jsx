@@ -11,8 +11,7 @@ var ReactMovie = React.createClass({
   getInitialState: function () {
     return {
       movies: [],
-      loadingMovies: false,
-      searchKey: ''
+      loadingMovies: false
     }
   },
 
@@ -57,12 +56,6 @@ var ReactMovie = React.createClass({
     }.bind(this));
   },
 
-  onSearch: function (searchKey) {
-    this.setState({
-      searchKey: searchKey
-    });
-  },
-
   addMovie: function (movie) {
     var newMovie = {
       title: movie.title,
@@ -83,7 +76,7 @@ var ReactMovie = React.createClass({
     return (
       <div>
         <Header />
-        <SearchBar onSearch={this.onSearch} />
+        <SearchBar />
         {this.props.children}
       </div>
     );
