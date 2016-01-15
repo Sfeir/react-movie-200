@@ -88,8 +88,8 @@ var Movie = React.createClass({
     if (this.state.selected) {
       actionButtons = (
         <div className="pull-right">
-          <button className="btn btn-default" onClick={this.openEditionForm}><span className="glyphicon glyphicon-pencil"/></button>
-          <button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, movie.id)}><i className="glyphicon glyphicon-trash"></i></button>
+          <button className="btn btn-default"><span className="glyphicon glyphicon-pencil"/></button>
+          <button className="btn btn-danger"><i className="glyphicon glyphicon-trash"></i></button>
         </div>
       );
     } else {
@@ -103,7 +103,7 @@ var Movie = React.createClass({
                           onMovieFormSaved={this.onMovieModification} />
     } else {
       content = (
-        <div className="row">
+        <div className="row" onClick={this.onSelect}>
           <img src={afficheUrl} className="col-md-3" />
           <div className="caption col-md-9">
             <h3>{movie.title} {actionButtons} </h3>
