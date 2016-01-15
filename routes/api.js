@@ -16,8 +16,10 @@ exports.fetchMovies = function (req, res) {
     } else {
         movies = MOVIES;
     }
-    return res.status(200).json(movies);
 
+		setTimeout(function () {
+			res.status(200).json(movies);
+		}, 1000);
 };
 
 
