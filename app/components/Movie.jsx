@@ -4,6 +4,7 @@ var _ = require('lodash');
 var MovieApi = require('../api/MovieAPI');
 var MoviesStore = require('../stores/MoviesStore');
 var MoviesActionCreator = require('../actions/MoviesActionCreator');
+var history = require('../history');
 
 var Movie = React.createClass({
   getInitialState: function () {
@@ -71,6 +72,7 @@ var Movie = React.createClass({
 
   deleteMovie: function () {
     MoviesActionCreator.deleteMovie(this.props.params.id);
+    history.replaceState(null, '/movies');
   },
 
   componentDidUpdate: function (prevProps) {
