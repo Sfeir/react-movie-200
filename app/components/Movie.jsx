@@ -69,6 +69,10 @@ var Movie = React.createClass({
     });
   },
 
+  deleteMovie: function () {
+    MoviesActionCreator.deleteMovie(this.props.params.id);
+  },
+
   componentDidUpdate: function (prevProps) {
     let oldId = prevProps.params.id;
     let newId = this.props.params.id;
@@ -89,7 +93,7 @@ var Movie = React.createClass({
       actionButtons = (
         <div className="pull-right">
           <button className="btn btn-default"><span className="glyphicon glyphicon-pencil"/></button>
-          <button className="btn btn-danger"><i className="glyphicon glyphicon-trash"></i></button>
+          <button className="btn btn-danger" onClick={this.deleteMovie}><i className="glyphicon glyphicon-trash"></i></button>
         </div>
       );
     } else {
