@@ -1,6 +1,7 @@
 var dispatcher = require('../dispatcher');
 var actionTypes = require('../actions/actionTypes');
 var EventEmitter = require('events').EventEmitter;
+var _ = require('lodash');
 
 var state = {};
 
