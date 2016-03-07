@@ -1,6 +1,6 @@
 function getMovieList () {
   return fetch('/server/api/movies')
-      .then(function (response) { return response.json(); });
+          .then(function (response) { return response.json(); });
 }
 
 module.exports = {
