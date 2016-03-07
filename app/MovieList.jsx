@@ -5,7 +5,7 @@ var MovieList = React.createClass({
   render: function () {
     var movies = this.props.movies;
     var moviesTag = movies.map(function (movie) {
-      return <Movie data={movie} onMovieDeletion={this.props.onMovieDeletion} />
+      return <Movie key={movie.id} data={movie} onMovieDeletion={this.props.onMovieDeletion} />
     }.bind(this));
     var content;
 
