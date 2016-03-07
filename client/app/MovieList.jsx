@@ -1,5 +1,6 @@
 var React = require('react');
 var Movie = require('./Movie.jsx');
+var MovieAPI = require('./api/MovieAPI.js');
 
 var MOVIES = [
   {
@@ -47,12 +48,12 @@ var MovieList = React.createClass({
       loading: true
     });
 
-    setTimeout(function (context) {
-      context.setState({
-        movies: MOVIES,
+    MovieAPI.getMovieList().then(function (movies) {
+      this.setState({
+        movies: movies,
         loading: false
       });
-    }, 1000, this);
+    }.bind(this));
   },
 
   render: function () {
