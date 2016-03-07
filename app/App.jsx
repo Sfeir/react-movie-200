@@ -1,13 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Header = require('./Header.jsx');
 
 var App = React.createClass({
   render: function () {
     return (
       <div>
-        <header className="col-md-12">
-            <h2>ReactMovie</h2>
-        </header>
+        <Header />
 
         <ul className="thumbnails list-unstyled">
             <li className="col-md-12 row">
