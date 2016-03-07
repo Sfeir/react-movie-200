@@ -1,12 +1,35 @@
 var React = require('react');
 
 var Movie = React.createClass({
+  getInitialState: function () {
+    return {
+      selected: false
+    }
+  },
+
+  onSelect: function () {
+    this.setState({
+      selected: true
+    });
+  },
+
   render: function () {
     var data = this.props.data,
-        afficheUrl = data.poster || 'server/img/no-poster.jpg';
+        afficheUrl = data.poster || 'server/img/no-poster.jpg',
+        actionButtons;
+
+    if (this.state.selected) {
+      actionButtons = (
+        <div className="pull-right">
+          <button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, data.id)}><i className="glyphicon glyphicon-trash" /></button>
+        </div>
+      );
+    } else {
+      actionButtons = false;
+    }
 
     return (
-      <li className="col-md-12">
+      <li className="col-md-12" onClick={this.onSelect}>
         <img src={afficheUrl} className="col-md-2" />
         <div className="caption col-md-8 pull-left">
           <h3>{data.title}</h3>
@@ -16,9 +39,7 @@ var Movie = React.createClass({
           <p><b>Synopsis : </b>{data.synopsis}</p>
           <p><b>Prix : </b>{data.price} €</p>
         </div>
-        <div className="pull-right">
-          <button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, data.id)}><i className="glyphicon glyphicon-trash" /></button>
-        </div>
+        {actionButtons}
       </li>
     );
   }
