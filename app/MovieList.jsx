@@ -13,7 +13,11 @@ var MovieList = React.createClass({
                       return movie.title.toLowerCase().match(searchKey.toLowerCase());
                     })
                     .map(function (movie) {
-                      return <Movie key={movie.id} data={movie} onMovieDeletion={this.props.onMovieDeletion} />
+                      return <Movie
+                                key={movie.id}
+                                data={movie}
+                                onMovieDeletion={this.props.onMovieDeletion}
+                                onMovieModification={this.props.onMovieModification} />
                     }.bind(this));
     var content;
 
