@@ -21,6 +21,7 @@ var Movie = React.createClass({
     if (this.state.selected) {
       actionButtons = (
         <div className="pull-right">
+          <button className="btn btn-default"><i className="glyphicon glyphicon-pencil" /></button>
           <button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, data.id)}><i className="glyphicon glyphicon-trash" /></button>
         </div>
       );
