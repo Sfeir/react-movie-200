@@ -23,11 +23,23 @@ var MovieList = React.createClass({
     }.bind(this));
   },
 
+  onMovieDeletion: function (movieId) {
+    MovieAPI.removeMovie(movieId).then(function () {
+      var filteredMovieList = this.state.movies.filter(function (movie) {
+        return movie.id !== movieId;
+      });
+
+      this.setState({
+        movies: filteredMovieList
+      })
+    }.bind(this));
+  },
+
   render: function () {
     var movies = this.state.movies;
     var moviesTag = movies.map(function (movie) {
-      return <Movie data={movie} />
-    });
+      return <Movie data={movie} onMovieDeletion={this.onMovieDeletion} />
+    }.bind(this));
     var content;
 
     if (this.state.loading) {
