@@ -9,7 +9,13 @@ function removeMovie (id) {
   return axios.delete('/server/api/movies/' + id);
 }
 
+function addMovie (movie) {
+  return axios.post('/server/api/movies/', movie)
+            .then(function (response) { return response.data; });
+}
+
 module.exports = {
   getMovieList: getMovieList,
-  removeMovie: removeMovie
+  removeMovie: removeMovie,
+  addMovie: addMovie
 }
