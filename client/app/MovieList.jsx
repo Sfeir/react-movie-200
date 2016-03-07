@@ -36,10 +36,13 @@ var MOVIES = [
 
 var MovieList = React.createClass({
   render: function () {
+    var movies = MOVIES.map(function (movie) {
+      return <Movie data={movie} />
+    });
+
     return (
       <ul className="thumbnails list-unstyled">
-        <Movie data={MOVIES[0]} />
-        <Movie data={MOVIES[1]} />
+        {movies}
       </ul>
     );
   }
