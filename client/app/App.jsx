@@ -51,6 +51,22 @@ var App = React.createClass({
     }.bind(this));
   },
 
+  addMovie: function (movie) {
+    var newMovie = {
+      title: movie.title,
+      actors: movie.actors,
+      synopsis: movie.synopsis
+    };
+
+    MovieAPI.addMovie(newMovie).then(function (movie) {
+      var newMovieList = this.state.movies.concat([movie]);
+
+      this.setState({
+        movies: newMovieList
+      });
+    }.bind(this));
+  },
+
   onSearch: function (searchKey) {
     this.setState({
       searchKey: searchKey
@@ -64,7 +80,7 @@ var App = React.createClass({
       <div>
         <Header />
         <SearchBar onSearch={this.onSearch} />
-        <MovieForm />
+        <MovieForm onMovieFormSaved={this.addMovie} />
         <MovieList
           searchKey={this.state.searchKey}
           movies={this.state.movies}
