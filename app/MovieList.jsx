@@ -2,6 +2,10 @@ var React = require('react');
 var Movie = require('./Movie.jsx');
 
 var MovieList = React.createClass({
+  shouldComponentUpdate: function (nextProps) {
+    return this.props.searchKey !== nextProps.searchKey || this.props.movies !== nextProps.movies;
+  },
+
   render: function () {
     var movies = this.props.movies;
     var searchKey = this.props.searchKey;
