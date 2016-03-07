@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start-api-server": "node server.js",
-    "start": "webpack-dev-server --progress"
+    "start": "webpack-dev-server --progress & node server.js"
   },
   "author": "",
   "license": "MIT",
