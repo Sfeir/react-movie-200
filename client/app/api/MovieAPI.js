@@ -13,12 +13,18 @@ var headers = {
 };
 
 function addMovie (movie) {
-  return fetch('/server/api/movies/', { method: 'POST', headers : headers, body : JSON.stringify( movie ) })
+  return fetch('/server/api/movies/', { method: 'POST', headers : headers, body : JSON.stringify(movie) })
+              .then(function (response) { return response.json(); });
+}
+
+function updateMovie (movie) {
+  return fetch('/server/api/movies/' + movie.id, { method: 'PUT', headers : headers, body : JSON.stringify(movie) })
               .then(function (response) { return response.json(); });
 }
 
 module.exports = {
   getMovieList: getMovieList,
   removeMovie: removeMovie,
-  addMovie: addMovie
+  addMovie: addMovie,
+  updateMovie: updateMovie
 }

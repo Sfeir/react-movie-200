@@ -73,6 +73,22 @@ var App = React.createClass({
     });
   },
 
+  onMovieModification: function (newData) {
+    MovieAPI.updateMovie(newData).then(function () {
+      var newMovieList = this.state.movies.map(function (movie) {
+        if (movie.id === newData.id) {
+          return newData;
+        } else {
+          return movie;
+        }
+      });
+
+      this.setState({
+        movies: newMovieList
+      });
+    }.bind(this));
+  },
+
   render: function () {
     var searchKey = this.state.searchKey;
 
@@ -85,7 +101,8 @@ var App = React.createClass({
           searchKey={this.state.searchKey}
           movies={this.state.movies}
           loadingMovies={this.state.loadingMovies}
-          onMovieDeletion={this.onMovieDeletion} />
+          onMovieDeletion={this.onMovieDeletion}
+          onMovieModification={this.onMovieModification} />
       </div>
     );
   }

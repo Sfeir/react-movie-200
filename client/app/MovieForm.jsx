@@ -11,6 +11,12 @@ var MovieForm = React.createClass({
     };
   },
 
+  componentDidMount: function () {
+    this.refs.movieTitle.value = this.props.movie.title;
+    this.refs.movieActors.value = this.props.movie.actors;
+    this.refs.movieSynopsis.value = this.props.movie.synopsis;
+  },
+
   onSubmit: function (e) {
     e.preventDefault();
 
@@ -30,6 +36,8 @@ var MovieForm = React.createClass({
   },
 
   render: function () {
+    var cancelBtn = this.props.edition ? <button className="btn btn-danger pull-right" onClick={this.props.onCancel}>Cancel</button> : false;
+
     return (
       <form className="movie-form" onSubmit={this.onSubmit} >
         <h3 className="col-md-12">Add a movie</h3>
@@ -52,6 +60,7 @@ var MovieForm = React.createClass({
           </div>
         </div>
         <div className="col-md-12">
+          {cancelBtn}
           <input type="submit" className="btn btn-primary pull-right" value="Save" />
         </div>
       </form>
