@@ -3,6 +3,11 @@ function getMovieList () {
           .then(function (response) { return response.json(); });
 }
 
+function removeMovie (id) {
+  return fetch('/server/api/movies/' + id, { method: 'DELETE' });
+}
+
 module.exports = {
-  getMovieList: getMovieList
+  getMovieList: getMovieList,
+  removeMovie: removeMovie
 }
