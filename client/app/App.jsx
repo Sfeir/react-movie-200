@@ -13,7 +13,7 @@ var App = React.createClass({
     return (
       <div>
         <Header />
-        <Videotheque />
+        {this.props.children}
       </div>
     );
   }
