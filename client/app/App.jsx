@@ -15,6 +15,7 @@ var Videotheque = require('./Videotheque.jsx');
 var SearchBar = require('./SearchBar.jsx');
 var MovieAPI = require('./api/MovieAPI.js');
 var MovieForm = require('./MovieForm.jsx');
+var Home = require('./Home.jsx');
 
 
 var App = React.createClass({
