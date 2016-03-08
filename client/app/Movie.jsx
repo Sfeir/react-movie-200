@@ -36,7 +36,7 @@ var Movie = React.createClass({
   },
 
   onMovieModification: function (newData) {
-    var updatedMovie = _.merge(this.props.data, newData);
+    var updatedMovie = _.merge(this.state.data, newData);
 
     this.props.onMovieModification(updatedMovie);
 
@@ -84,7 +84,7 @@ var Movie = React.createClass({
 
     if (this.state.editing) {
       content = <MovieForm edition={true}
-                          movie={this.props.data}
+                          movie={this.state.data}
                           onCancel={this.onCancelModification}
                           onMovieFormSaved={this.onMovieModification} />
     } else {
