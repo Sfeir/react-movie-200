@@ -106,7 +106,6 @@ var Videotheque = React.createClass({
 
     return (
       <div>
-        <MovieForm onMovieFormSaved={this.addMovie} />
         <header className="page-header">
           <h1>
             Ma vidéothèque <small>{movies.length} films</small> <Link className="btn btn-success" to="/movie/new">Ajouter</Link>
