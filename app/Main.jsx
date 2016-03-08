@@ -4,6 +4,7 @@ var App = require('./App.jsx');
 var Home = require('./Home.jsx');
 var Videotheque = require('./Videotheque.jsx');
 var Movie = require('./Movie.jsx');
+var MovieForm = require('./MovieForm.jsx');
 
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
@@ -24,6 +25,7 @@ var Main = React.createClass({
           <IndexRoute component={Home} />
           <Route path="home" component={Home} />
           <Route path="movies" component={Videotheque}>
+            <Route path="/movie/new" component={MovieForm} />
             <Route path="/movie/:id" component={Movie} />
           </Route>
         </Route>
