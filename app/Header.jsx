@@ -8,7 +8,7 @@ var Header = React.createClass({
           <section className="container-fluid">
             <Link className="navbar-brand" to="/home">ReactMovie</Link>
             <ul className="nav navbar-nav">
-              <li><a>Mes films</a></li>
+              <li><Link to="/movies">Mes films</Link></li>
             </ul>
           </section>
       </header>
