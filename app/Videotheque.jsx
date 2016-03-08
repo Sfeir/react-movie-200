@@ -36,7 +36,9 @@ var Videotheque = React.createClass({
 
       this.setState({
         movies: filteredMovieList
-      })
+      });
+
+      this.props.history.push('/movies');
     }.bind(this));
   },
 
