@@ -101,6 +101,19 @@ var Videotheque = React.createClass({
       content = moviesTag;
     }
 
+    var childrenElement;
+
+    if (this.props.children) {
+      childrenElement = React.cloneElement(
+        this.props.children,
+        {
+          onMovieFormSaved: this.addMovie
+        }
+      );
+    } else {
+      childrenElement = false;
+    }
+
     return (
       <div>
         <header className="page-header">
@@ -113,7 +126,7 @@ var Videotheque = React.createClass({
           {content}
         </ul>
         <div className="col-md-8">
-          {this.props.children}
+          {childrenElement}
         </div>
       </div>
     );
