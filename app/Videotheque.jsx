@@ -108,7 +108,8 @@ var Videotheque = React.createClass({
         this.props.children,
         {
           onMovieFormSaved: this.addMovie,
-          onMovieDeletion: this.onMovieDeletion
+          onMovieDeletion: this.onMovieDeletion,
+          onMovieModification: this.onMovieModification
         }
       );
     } else {
