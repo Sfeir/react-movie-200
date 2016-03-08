@@ -94,14 +94,11 @@ var Videotheque = React.createClass({
                           );
                       });
     var content;
-    var firstMovie;
 
     if (this.state.loadingMovies) {
       content = <li>Chargement de la liste des films en cours</li>
-      firstMovie = false;
     } else {
       content = moviesTag;
-      firstMovie = <Movie data={movies[0]} />;
     }
 
     return (
