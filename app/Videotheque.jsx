@@ -1,16 +1,86 @@
 var React = require('react');
 var Movie = require('./Movie.jsx');
+var SearchBar = require('./SearchBar.jsx');
+var MovieForm = require('./MovieForm.jsx');
+var MovieAPI = require('./api/MovieAPI.js');
 
 var Videotheque = React.createClass({
-  shouldComponentUpdate: function (nextProps) {
-    return this.props.searchKey !== nextProps.searchKey || this.props.movies !== nextProps.movies;
+  getInitialState: function () {
+    return {
+      movies: [],
+      loadingMovies: false,
+      searchKey: ''
+    }
+  },
+
+  componentWillMount: function () {
+    this.setState({
+      loadingMovies: true
+    });
+
+    MovieAPI.getMovieList().then(function (movies) {
+      this.setState({
+        movies: movies,
+        loadingMovies: false
+      });
+    }.bind(this));
+  },
+
+  onMovieDeletion: function (movieId) {
+    MovieAPI.removeMovie(movieId).then(function () {
+      var filteredMovieList = this.state.movies.filter(function (movie) {
+        return movie.id !== movieId;
+      });
+
+      this.setState({
+        movies: filteredMovieList
+      })
+    }.bind(this));
+  },
+
+  addMovie: function (movie) {
+    var newMovie = {
+      title: movie.title,
+      actors: movie.actors,
+      synopsis: movie.synopsis
+    };
+
+    MovieAPI.addMovie(newMovie).then(function (movie) {
+      var newMovieList = this.state.movies.concat([movie]);
+
+      this.setState({
+        movies: newMovieList
+      });
+    }.bind(this));
+  },
+
+  onSearch: function (searchKey) {
+    this.setState({
+      searchKey: searchKey
+    });
+  },
+
+  onMovieModification: function (newData) {
+    MovieAPI.updateMovie(newData).then(function () {
+      var newMovieList = this.state.movies.map(function (movie) {
+        if (movie.id === newData.id) {
+          return newData;
+        } else {
+          return movie;
+        }
+      });
+
+      this.setState({
+        movies: newMovieList
+      });
+    }.bind(this));
   },
 
   render: function () {
-    var movies = this.props.movies;
-    var onMovieDeletion = this.props.onMovieDeletion;
-    var onMovieModification = this.props.onMovieModification;
-    var searchKey = this.props.searchKey;
+    var movies = this.state.movies;
+    var onMovieDeletion = this.onMovieDeletion;
+    var onMovieModification = this.onMovieModification;
+    var searchKey = this.state.searchKey;
     var moviesTag = movies.filter(function (movie) {
                         return movie.title.toLowerCase().match(searchKey.toLowerCase());
                       })
@@ -20,7 +90,7 @@ var Videotheque = React.createClass({
     var content;
     var firstMovie;
 
-    if (this.props.loadingMovies) {
+    if (this.state.loadingMovies) {
       content = <li>Chargement de la liste des films en cours</li>
       firstMovie = false;
     } else {
@@ -30,9 +100,11 @@ var Videotheque = React.createClass({
 
     return (
       <div>
+        <MovieForm onMovieFormSaved={this.addMovie} />
         <header className="page-header">
           <h1>Ma vidéothèque <small>{movies.length} films</small> <a className="btn btn-success" to="/movies/new">Ajouter</a></h1>
         </header>
+        <SearchBar onSearch={this.onSearch} />
         <ul className="col-md-4 list-group">
           {content}
         </ul>
