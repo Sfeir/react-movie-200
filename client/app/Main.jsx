@@ -11,6 +11,7 @@ var ReactDOM = require('react-dom');
 
 var App = require('./App.jsx');
 var Home = require('./Home.jsx');
+var Videotheque = require('./Videotheque.jsx');
 
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
@@ -25,6 +26,7 @@ var Main = React.createClass({
         <Route path="/" component={App}>
           <IndexRoute component={Home} />
           <Route path="home" component={Home} />
+          <Route path="movies" component={Videotheque} />
         </Route>
       </Router>
     );
