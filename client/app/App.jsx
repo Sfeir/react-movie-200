@@ -1,12 +1,3 @@
-/** Styles */
-require('bootstrap/dist/css/bootstrap.min.css');
-require('./App.css');
-
-/** Polyfills */
-require('babel-polyfill');
-require('whatwg-fetch');
-
-
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -109,6 +100,4 @@ var App = React.createClass({
   }
 });
 
-
-ReactDOM.render(<App />, document.getElementById('main'));
-
+module.exports = App;
