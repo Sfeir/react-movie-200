@@ -40,7 +40,7 @@ var MovieForm = React.createClass({
     var saveButton = this.props.movie && this.props.movie.id ? <button type="submit" className="btn btn-primary">Modifier</button> : <button type="submit" className="btn btn-primary">Ajouter</button>;
 
     return (
-      <form className="form-horizontal">
+      <form className="form-horizontal" onSubmit={this.onSubmit}>
 					<div className="form-group">
 						<label className="col-sm-4 control-label">Titre :</label>
 						<div className="col-sm-7">
