@@ -37,33 +37,52 @@ var MovieForm = React.createClass({
 
   render: function () {
     var cancelBtn = this.props.edition ? <button className="btn btn-danger pull-right" onClick={this.props.onCancel}>Cancel</button> : false;
+    var saveButton = this.props.movie && this.props.movie.id ? <button type="submit" className="btn btn-primary">Modifier</button> : <button type="submit" className="btn btn-primary">Ajouter</button>;
 
     return (
-      <form className="movie-form" onSubmit={this.onSubmit} >
-        <h3 className="col-md-12">Add a movie</h3>
-        <div className="col-md-4">
-          <div className="input-group col-md-11">
-            <label>Title</label>
-            <input ref="movieTitle" type="text" className="form-control" placeholder="" />
+      <form className="form-horizontal">
+					<div className="form-group">
+						<label className="col-sm-4 control-label">Titre :</label>
+						<div className="col-sm-7">
+							<input type="text" ref="movieTitle" className="form-control" required/>
+						</div>
+					</div>
+					<div className="form-group">
+						<label className="col-sm-4 control-label">Année de sortie :</label>
+						<div className="col-sm-7">
+							<input type="text" ref="movieReleaseYear" className="form-control"/>
+						</div>
+					</div>
+					<div className="form-group">
+						<label className="col-sm-4 control-label">Réalisateur : </label>
+						<div className="col-sm-7">
+							<input type="text" ref="movieDirector" className="form-control"/>
+						</div>
+					</div>
+					<div className="form-group">
+						<label className="col-sm-4 control-label">Acteurs :</label>
+						<div className="col-sm-7">
+							<input type="text" ref="movieActors" className="form-control"/>
+						</div>
+					</div>
+					<div className="form-group">
+						<label className="col-sm-4 control-label">Synopsis :</label>
+						<div className="col-sm-7">
+							<textarea type="text" ref="movieSynopsis" className="form-control" ></textarea>
+						</div>
+					</div>
+					<div className="form-group">
+						<label className="col-sm-4 control-label">Note :</label>
+						<div className="col-sm-7">
+							<input type="number" className="form-control" ref="movieRate" placeholder="entre 1 et 5" min="0" max="5"/>
+						</div>
+					</div>
+          <div className="form-group">
+            <div className="col-sm-offset-4 col-sm-8">
+              {saveButton}
+            </div>
           </div>
-        </div>
-        <div className="col-md-4">
-          <div className="input-group col-md-11">
-            <label>Actors</label>
-            <input ref="movieActors" type="text" className="form-control" placeholder="" />
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="input-group col-md-11">
-            <label>Synopsis</label>
-            <textarea ref="movieSynopsis" className="form-control" />
-          </div>
-        </div>
-        <div className="col-md-12">
-          {cancelBtn}
-          <input type="submit" className="btn btn-primary pull-right" value="Save" />
-        </div>
-      </form>
+			</form>
     );
   }
 });
