@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Header = require('./Header.jsx');
-var MovieList = require('./MovieList.jsx');
+var Videotheque = require('./Videotheque.jsx');
 var SearchBar = require('./SearchBar.jsx');
 var MovieAPI = require('./api/MovieAPI.js');
 var MovieForm = require('./MovieForm.jsx');
@@ -86,7 +86,7 @@ var App = React.createClass({
         <Header />
         <SearchBar onSearch={this.onSearch} />
         <MovieForm onMovieFormSaved={this.addMovie} />
-        <MovieList
+        <Videotheque
           searchKey={this.state.searchKey}
           movies={this.state.movies}
           loadingMovies={this.state.loadingMovies}
