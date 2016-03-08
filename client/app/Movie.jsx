@@ -1,12 +1,14 @@
 var React = require('react');
 var MovieForm = require('./MovieForm.jsx');
 var _ = require('lodash');
+var MovieAPI = require('./api/MovieAPI.js');
 
 var Movie = React.createClass({
   getInitialState: function () {
     return {
       selected: false,
-      editing: false
+      editing: false,
+      data: {}
     }
   },
 
@@ -41,8 +43,30 @@ var Movie = React.createClass({
     this.closeEditionForm();
   },
 
+  fetchMovie: function () {
+    MovieAPI.getMovie(this.props.params.id)
+      .then(function (movie) {
+        this.setState({
+          data: movie
+        });
+      }.bind(this));
+  },
+
+  componentDidMount: function () {
+    this.fetchMovie();
+  },
+
+  componentDidUpdate: function (prevProps) {
+    let oldId = prevProps.params.id;
+    let newId = this.props.params.id;
+
+    if (newId && oldId !== newId) {
+      this.fetchMovie();
+    }
+  },
+
   render: function () {
-    var data = this.props.data,
+    var data = this.state.data,
         afficheUrl = data.poster || 'server/img/no-poster.jpg',
         actionButtons,
         content;

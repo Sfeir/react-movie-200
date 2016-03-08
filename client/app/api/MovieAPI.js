@@ -22,9 +22,15 @@ function updateMovie (movie) {
               .then(function (response) { return response.json(); });
 }
 
+function getMovie (id) {
+  return fetch('/server/api/movies/' + id)
+              .then(function (response) { return response.json(); });
+}
+
 module.exports = {
   getMovieList: getMovieList,
   removeMovie: removeMovie,
   addMovie: addMovie,
-  updateMovie: updateMovie
+  updateMovie: updateMovie,
+  getMovie: getMovie
 }
