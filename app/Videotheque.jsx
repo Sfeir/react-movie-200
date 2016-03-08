@@ -107,7 +107,8 @@ var Videotheque = React.createClass({
       childrenElement = React.cloneElement(
         this.props.children,
         {
-          onMovieFormSaved: this.addMovie
+          onMovieFormSaved: this.addMovie,
+          onMovieDeletion: this.onMovieDeletion
         }
       );
     } else {
