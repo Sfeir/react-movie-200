@@ -4,6 +4,8 @@ var SearchBar = require('./SearchBar.jsx');
 var MovieForm = require('./MovieForm.jsx');
 var MovieAPI = require('./api/MovieAPI.js');
 
+var Link = require('react-router').Link;
+
 var Videotheque = React.createClass({
   getInitialState: function () {
     return {
@@ -85,7 +87,11 @@ var Videotheque = React.createClass({
                         return movie.title.toLowerCase().match(searchKey.toLowerCase());
                       })
                       .map(function (movie) {
-                        return <li className="list-group-item" key={movie.id}><a>{movie.title}</a></li>;
+                        return (
+                          <li className="list-group-item" key={movie.id}>
+                                <Link to={'/movie/' + movie.id}>{movie.title}</Link>
+                          </li>
+                          );
                       });
     var content;
     var firstMovie;
@@ -109,7 +115,7 @@ var Videotheque = React.createClass({
           {content}
         </ul>
         <div className="col-md-8">
-          {firstMovie}
+          {this.props.children}
         </div>
       </div>
     );
