@@ -106,7 +106,7 @@ var Movie = React.createClass({
     }
 
     return (
-      <div>
+      <div onClick={this.onSelect}>
         {content}
       </div>
 
