@@ -43,6 +43,12 @@ dispatcher.register(function (action) {
 		case actionTypes.ADD_MOVIE:
 			state.movies.push(action.newMovie);
 			break;
+		case actionTypes.DELETE_MOVIE:
+			state.movies = state.movies.filter(function (movie) {
+				// action.movieId est une String et movie.id est un Number, d'où le != au lieu du !==
+				return movie.id != action.movieId;
+			});
+			break;
 		default:
 			return true;
 	}

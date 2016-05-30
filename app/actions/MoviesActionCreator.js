@@ -35,5 +35,14 @@ module.exports = {
 					newMovie: movie
 				})
 			});
+	},
+	deleteMovie: function (id) {
+		MovieAPI.removeMovie(id)
+			.then(function () {
+				dispatcher.dispatch({
+					actionType: actionTypes.DELETE_MOVIE,
+					movieId: id
+				});
+			});
 	}
 };
