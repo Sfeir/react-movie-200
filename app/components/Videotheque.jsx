@@ -11,7 +11,7 @@ var MoviesActionCreator = require('../actions/MoviesActionCreator');
 
 var Videotheque = React.createClass({
 	getInitialState: function () {
-		return {movies: [], loadingMovies: false, searchKey: ''}
+		return {movies: [], loadingMovies: false}
 	},
 
 	componentWillMount: function () {
@@ -28,7 +28,7 @@ var Videotheque = React.createClass({
 
 	updateMovies: function () {
 		var state = MoviesStore.getState();
-		this.setState({movies: state.movies});
+		this.setState({movies: state.displayedMovies});
 	},
 
 	onMovieDeletion: function (movieId) {
@@ -59,10 +59,6 @@ var Videotheque = React.createClass({
 		}.bind(this));
 	},
 
-	onSearch: function (searchKey) {
-		this.setState({searchKey: searchKey});
-	},
-
 	onMovieModification: function (newData) {
 		MovieAPI.updateMovie(newData).then(function () {
 			var newMovieList = this.state.movies.map(function (movie) {
@@ -81,10 +77,7 @@ var Videotheque = React.createClass({
 		var movies = this.state.movies;
 		var onMovieDeletion = this.onMovieDeletion;
 		var onMovieModification = this.onMovieModification;
-		var searchKey = this.state.searchKey;
-		var moviesTag = movies.filter(function (movie) {
-			return movie.title.toLowerCase().match(searchKey.toLowerCase());
-		}).map(function (movie) {
+		var moviesTag = movies.map(function (movie) {
 			return (
 				<li className="list-group-item" key={movie.id}>
 					<Link to={'/movie/' + movie.id}>{movie.title}</Link>

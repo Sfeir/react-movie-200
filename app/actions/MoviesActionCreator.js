@@ -20,5 +20,11 @@ module.exports = {
 					movie: movie
 				});
 			});
+	},
+	searchMovie: function (searchKey) {
+		dispatcher.dispatch({
+			actionType: actionTypes.SEARCH_MOVIE,
+			searchKey: searchKey
+		});
 	}
 };
