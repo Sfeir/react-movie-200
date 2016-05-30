@@ -11,5 +11,14 @@ module.exports = {
 					movies: movies
 				});
 			});
+	},
+	findMovie: function (id) {
+		MovieAPI.getMovie(id)
+			.then(function (movie) {
+				dispatcher.dispatch({
+					actionType: actionTypes.FIND_MOVIE,
+					movie: movie
+				});
+			});
 	}
 };

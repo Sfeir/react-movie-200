@@ -3,115 +3,129 @@ var MovieForm = require('./MovieForm.jsx');
 var _ = require('lodash');
 var MovieAPI = require('../api/MovieAPI.js');
 
+var MoviesStore = require('../stores/MoviesStore');
+var MoviesActionCreator = require('../actions/MoviesActionCreator');
+
 var Movie = React.createClass({
-  getInitialState: function () {
-    return {
-      selected: false,
-      editing: false,
-      data: {}
-    }
-  },
+	getInitialState: function () {
+		return {selected: false, editing: false, data: {}}
+	},
 
-  onSelect: function () {
-    this.setState({
-      selected: true
-    });
-  },
+	componentWillMount: function () {
+		MoviesStore.addChangeListener(this.updateMovie);
+	},
 
-  openEditionForm: function () {
-    this.setState({
-      editing: true
-    });
-  },
+	componentDidMount: function () {
+		this.findMovie();
+	},
 
-  closeEditionForm: function (event) {
-    this.setState({
-      editing: false
-    });
-  },
+	componentWillUnmount: function () {
+		MoviesStore.removeChangeListener(this.updateMovie);
+	},
 
-  onCancelModification: function (event) {
-    event.preventDefault();
-    this.closeEditionForm();
-  },
+	componentDidUpdate: function (prevProps) {
+		let oldId = prevProps.params.id;
+		let newId = this.props.params.id;
 
-  onMovieModification: function (newData) {
-    var updatedMovie = _.merge(this.state.data, newData);
+		if (newId && oldId !== newId) {
+			this.findMovie();
+		}
+	},
 
-    this.props.onMovieModification(updatedMovie);
+	findMovie: function () {
+		MoviesActionCreator.findMovie(this.props.params.id);
+	},
 
-    this.closeEditionForm();
-  },
+	updateMovie: function () {
+		var state = MoviesStore.getState();
 
-  fetchMovie: function () {
-    MovieAPI.getMovie(this.props.params.id)
-      .then(function (movie) {
-        this.setState({
-          data: movie
-        });
-      }.bind(this));
-  },
+		this.setState({data: state.movie});
+	},
 
-  componentDidMount: function () {
-    this.fetchMovie();
-  },
+	onSelect: function () {
+		this.setState({selected: true});
+	},
 
-  componentDidUpdate: function (prevProps) {
-    let oldId = prevProps.params.id;
-    let newId = this.props.params.id;
+	openEditionForm: function () {
+		this.setState({editing: true});
+	},
 
-    if (newId && oldId !== newId) {
-      this.fetchMovie();
-    }
-  },
+	closeEditionForm: function (event) {
+		this.setState({editing: false});
+	},
 
-  render: function () {
-    var data = this.state.data,
-        afficheUrl = data.poster || 'img/no-poster.jpg',
-        actionButtons,
-        content;
+	onCancelModification: function (event) {
+		event.preventDefault();
+		this.closeEditionForm();
+	},
 
-    if (this.state.selected) {
-      actionButtons = (
-        <div className="pull-right">
-          <button className="btn btn-default" onClick={this.openEditionForm}><i className="glyphicon glyphicon-pencil" /></button>
-          <button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, data.id)}><i className="glyphicon glyphicon-trash" /></button>
-        </div>
-      );
-    } else {
-      actionButtons = false;
-    }
+	onMovieModification: function (newData) {
+		var updatedMovie = _.merge(this.state.data, newData);
 
-    if (this.state.editing) {
-      content = <MovieForm edition={true}
-                          movie={this.state.data}
-                          onCancel={this.onCancelModification}
-                          onMovieFormSaved={this.onMovieModification} />
-    } else {
-      content = (
-        <div className="row">
-          <img src={afficheUrl} className="col-md-3" />
-          <div className="caption col-md-9">
-            <h3>{data.title} {actionButtons} </h3>
-            <p><b>Année de sortie : </b>{data.releaseYear}</p>
-            <p><b>Réalisateurs : </b>{data.directors}</p>
-            <p><b>Acteurs : </b>{data.actors}</p>
-            <p><b>Synopsis : </b>{data.synopsis}</p>
-            <p><b>Vu le : </b>{data.lastViewDate}</p>
-            <p><b>Prix : </b>{data.price}</p>
-            <p><b>Note : </b>{data.rate}</p>
-          </div>
-        </div>
-      );
-    }
+		this.props.onMovieModification(updatedMovie);
 
-    return (
-      <div onClick={this.onSelect}>
-        {content}
-      </div>
+		this.closeEditionForm();
+	},
 
-    );
-  }
+	render: function () {
+		var data = this.state.data,
+			afficheUrl = data.poster || 'img/no-poster.jpg',
+			actionButtons,
+			content;
+
+		if (this.state.selected) {
+			actionButtons = (
+				<div className="pull-right">
+					<button className="btn btn-default" onClick={this.openEditionForm}><i className="glyphicon glyphicon-pencil"/></button>
+					<button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, data.id)}><i className="glyphicon glyphicon-trash"/></button>
+				</div>
+			);
+		} else {
+			actionButtons = false;
+		}
+
+		if (this.state.editing) {
+			content = <MovieForm edition={true} movie={this.state.data} onCancel={this.onCancelModification} onMovieFormSaved={this.onMovieModification}/>
+		} else {
+			content = (
+				<div className="row">
+					<img src={afficheUrl} className="col-md-3"/>
+					<div className="caption col-md-9">
+						<h3>{data.title} {actionButtons}
+						</h3>
+						<p>
+							<b>Année de sortie :
+							</b>{data.releaseYear}</p>
+						<p>
+							<b>Réalisateurs :
+							</b>{data.directors}</p>
+						<p>
+							<b>Acteurs :
+							</b>{data.actors}</p>
+						<p>
+							<b>Synopsis :
+							</b>{data.synopsis}</p>
+						<p>
+							<b>Vu le :
+							</b>{data.lastViewDate}</p>
+						<p>
+							<b>Prix :
+							</b>{data.price}</p>
+						<p>
+							<b>Note :
+							</b>{data.rate}</p>
+					</div>
+				</div>
+			);
+		}
+
+		return (
+			<div onClick={this.onSelect}>
+				{content}
+			</div>
+
+		);
+	}
 });
 
 module.exports = Movie;
