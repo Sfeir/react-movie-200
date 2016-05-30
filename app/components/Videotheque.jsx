@@ -2,7 +2,7 @@ var React = require('react');
 var Movie = require('./Movie.jsx');
 var SearchBar = require('./SearchBar.jsx');
 var MovieForm = require('./MovieForm.jsx');
-var MovieAPI = require('./api/MovieAPI.js');
+var MovieAPI = require('../api/MovieAPI.js');
 
 var Link = require('react-router').Link;
 
