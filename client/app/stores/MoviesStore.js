@@ -5,7 +5,9 @@ var _ = require('lodash');
 
 var state = {
 	movies: [],
-	movie: {}
+	movie: {},
+	searchKey: '',
+	displayedMovies: []
 };
 
 
@@ -35,9 +37,17 @@ dispatcher.register(function (action) {
 		case actionTypes.FIND_MOVIE:
 			state.movie = action.movie;
 			break;
+		case actionTypes.SEARCH_MOVIE:
+			state.searchKey = action.searchKey;
+			break;
 		default:
 			return true;
 	}
+
+	state.displayedMovies = _.filter(state.movies, function (movie) {
+		var title = movie.title || '';
+		return title.toLowerCase().match(state.searchKey.toLowerCase());
+	});
 
 	MoviesStore.emitChange();
 

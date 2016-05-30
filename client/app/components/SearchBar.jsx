@@ -1,10 +1,11 @@
 var React = require('react');
+var MoviesActionCreator = require('../actions/MoviesActionCreator');
 
 var SearchBar = React.createClass({
   onSearch: function () {
     var searchKey = this.refs.searchBar.value;
 
-    this.props.onSearch(searchKey);
+	MoviesActionCreator.searchMovie(searchKey);
   },
 
   render: function () {
