@@ -1,7 +1,7 @@
 var React = require('react');
 var MovieForm = require('./MovieForm.jsx');
 var _ = require('lodash');
-var MovieAPI = require('./api/MovieAPI.js');
+var MovieAPI = require('../api/MovieAPI.js');
 
 var Movie = React.createClass({
   getInitialState: function () {

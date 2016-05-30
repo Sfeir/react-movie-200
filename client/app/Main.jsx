@@ -1,6 +1,6 @@
 /** Styles */
 require('bootstrap/dist/css/bootstrap.min.css');
-require('./App.css');
+require('./components/App.css');
 
 /** Polyfills */
 require('babel-polyfill');
@@ -9,11 +9,11 @@ require('whatwg-fetch');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var App = require('./App.jsx');
-var Home = require('./Home.jsx');
-var Videotheque = require('./Videotheque.jsx');
-var Movie = require('./Movie.jsx');
-var MovieForm = require('./MovieForm.jsx');
+var App = require('./components/App.jsx');
+var Home = require('./components/Home.jsx');
+var Videotheque = require('./components/Videotheque.jsx');
+var Movie = require('./components/Movie.jsx');
+var MovieForm = require('./components/MovieForm.jsx');
 
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
