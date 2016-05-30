@@ -26,5 +26,14 @@ module.exports = {
 			actionType: actionTypes.SEARCH_MOVIE,
 			searchKey: searchKey
 		});
+	},
+	addMovie: function (newMovie) {
+		MovieAPI.addMovie(newMovie)
+			.then(function (movie) {
+				dispatcher.dispatch({
+					actionType: actionTypes.ADD_MOVIE,
+					newMovie: movie
+				})
+			});
 	}
 };
