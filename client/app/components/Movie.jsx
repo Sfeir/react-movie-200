@@ -67,6 +67,10 @@ var Movie = React.createClass({
 		this.closeEditionForm();
 	},
 
+	deleteMovie: function () {
+		MoviesActionCreator.deleteMovie(this.props.params.id);
+	},
+
 	render: function () {
 		var data = this.state.data,
 			afficheUrl = data.poster || 'server/img/no-poster.jpg',
@@ -77,7 +81,7 @@ var Movie = React.createClass({
 			actionButtons = (
 				<div className="pull-right">
 					<button className="btn btn-default" onClick={this.openEditionForm}><i className="glyphicon glyphicon-pencil"/></button>
-					<button className="btn btn-danger" onClick={this.props.onMovieDeletion.bind(null, data.id)}><i className="glyphicon glyphicon-trash"/></button>
+					<button className="btn btn-danger" onClick={this.deleteMovie}><i className="glyphicon glyphicon-trash"/></button>
 				</div>
 			);
 		} else {
