@@ -11,10 +11,7 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 
-var createHashHistory = require('history/lib/createHashHistory');
-var history = createHashHistory({
-  queryKey: false
-});
+var history = require('./history');
 
 // Faire le routing ici
 var Main = React.createClass({

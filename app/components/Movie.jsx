@@ -6,6 +6,8 @@ var MovieAPI = require('../api/MovieAPI.js');
 var MoviesStore = require('../stores/MoviesStore');
 var MoviesActionCreator = require('../actions/MoviesActionCreator');
 
+var history = require('../history');
+
 var Movie = React.createClass({
 	getInitialState: function () {
 		return {selected: false, editing: false, data: {}}
@@ -69,6 +71,7 @@ var Movie = React.createClass({
 
 	deleteMovie: function () {
 		MoviesActionCreator.deleteMovie(this.props.params.id);
+		history.replaceState(null, '/movies');
 	},
 
 	render: function () {
