@@ -7,6 +7,7 @@ var MoviesStore = require('../stores/MoviesStore');
 var MoviesActionCreator = require('../actions/MoviesActionCreator');
 
 var Movie = React.createClass({
+
 	getInitialState: function () {
 		return {selected: false, editing: false, data: {}}
 	},
@@ -69,6 +70,7 @@ var Movie = React.createClass({
 
 	deleteMovie: function () {
 		MoviesActionCreator.deleteMovie(this.props.params.id);
+		this.context.router.replace('/movies');
 	},
 
 	render: function () {
@@ -131,5 +133,9 @@ var Movie = React.createClass({
 		);
 	}
 });
+
+Movie.contextTypes = {
+	router: React.PropTypes.object
+};
 
 module.exports = Movie;
