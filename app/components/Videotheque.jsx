@@ -6,137 +6,131 @@ var MovieAPI = require('../api/MovieAPI.js');
 
 var Link = require('react-router').Link;
 
+var MoviesStore = require('../stores/MoviesStore');
+var MoviesActionCreator = require('../actions/MoviesActionCreator');
+
 var Videotheque = React.createClass({
-  getInitialState: function () {
-    return {
-      movies: [],
-      loadingMovies: false,
-      searchKey: ''
-    }
-  },
+	getInitialState: function () {
+		return {movies: [], loadingMovies: false, searchKey: ''}
+	},
 
-  componentWillMount: function () {
-    this.setState({
-      loadingMovies: true
-    });
+	componentWillMount: function () {
+		MoviesStore.addChangeListener(this.updateMovies);
+	},
 
-    MovieAPI.getMovieList().then(function (movies) {
-      this.setState({
-        movies: movies,
-        loadingMovies: false
-      });
-    }.bind(this));
-  },
+	componentDidMount: function () {
+		MoviesActionCreator.fetchMovies();
+	},
 
-  onMovieDeletion: function (movieId) {
-    MovieAPI.removeMovie(movieId).then(function () {
-      var filteredMovieList = this.state.movies.filter(function (movie) {
-        return movie.id !== movieId;
-      });
+	componentWillUnmount: function () {
+		MoviesStore.removeChangeListener(this.updateMovies);
+	},
 
-      this.setState({
-        movies: filteredMovieList
-      });
+	updateMovies: function () {
+		var state = MoviesStore.getState();
+		this.setState({movies: state.movies});
+	},
 
-      this.props.history.push('/movies');
-    }.bind(this));
-  },
+	onMovieDeletion: function (movieId) {
+		MovieAPI.removeMovie(movieId).then(function () {
+			var filteredMovieList = this.state.movies.filter(function (movie) {
+				return movie.id !== movieId;
+			});
 
-  addMovie: function (movie) {
-    var newMovie = {
-      title: movie.title,
-      actors: movie.actors,
-      synopsis: movie.synopsis
-    };
+			this.setState({movies: filteredMovieList});
 
-    MovieAPI.addMovie(newMovie).then(function (movie) {
-      var newMovieList = this.state.movies.concat([movie]);
+			this.props.history.push('/movies');
+		}.bind(this));
+	},
 
-      this.setState({
-        movies: newMovieList
-      });
+	addMovie: function (movie) {
+		var newMovie = {
+			title: movie.title,
+			actors: movie.actors,
+			synopsis: movie.synopsis
+		};
 
-      this.props.history.push('/movies');
-    }.bind(this));
-  },
+		MovieAPI.addMovie(newMovie).then(function (movie) {
+			var newMovieList = this.state.movies.concat([movie]);
 
-  onSearch: function (searchKey) {
-    this.setState({
-      searchKey: searchKey
-    });
-  },
+			this.setState({movies: newMovieList});
 
-  onMovieModification: function (newData) {
-    MovieAPI.updateMovie(newData).then(function () {
-      var newMovieList = this.state.movies.map(function (movie) {
-        if (movie.id === newData.id) {
-          return newData;
-        } else {
-          return movie;
-        }
-      });
+			this.props.history.push('/movies');
+		}.bind(this));
+	},
 
-      this.setState({
-        movies: newMovieList
-      });
-    }.bind(this));
-  },
+	onSearch: function (searchKey) {
+		this.setState({searchKey: searchKey});
+	},
 
-  render: function () {
-    var movies = this.state.movies;
-    var onMovieDeletion = this.onMovieDeletion;
-    var onMovieModification = this.onMovieModification;
-    var searchKey = this.state.searchKey;
-    var moviesTag = movies.filter(function (movie) {
-                        return movie.title.toLowerCase().match(searchKey.toLowerCase());
-                      })
-                      .map(function (movie) {
-                        return (
-                          <li className="list-group-item" key={movie.id}>
-                                <Link to={'/movie/' + movie.id}>{movie.title}</Link>
-                          </li>
-                          );
-                      });
-    var content;
+	onMovieModification: function (newData) {
+		MovieAPI.updateMovie(newData).then(function () {
+			var newMovieList = this.state.movies.map(function (movie) {
+				if (movie.id === newData.id) {
+					return newData;
+				} else {
+					return movie;
+				}
+			});
 
-    if (this.state.loadingMovies) {
-      content = <li>Chargement de la liste des films en cours</li>
-    } else {
-      content = moviesTag;
-    }
+			this.setState({movies: newMovieList});
+		}.bind(this));
+	},
 
-    var childrenElement;
+	render: function () {
+		var movies = this.state.movies;
+		var onMovieDeletion = this.onMovieDeletion;
+		var onMovieModification = this.onMovieModification;
+		var searchKey = this.state.searchKey;
+		var moviesTag = movies.filter(function (movie) {
+			return movie.title.toLowerCase().match(searchKey.toLowerCase());
+		}).map(function (movie) {
+			return (
+				<li className="list-group-item" key={movie.id}>
+					<Link to={'/movie/' + movie.id}>{movie.title}</Link>
+				</li>
+			);
+		});
+		var content;
 
-    if (this.props.children) {
-      childrenElement = React.cloneElement(
-        this.props.children,
-        {
-          onMovieFormSaved: this.addMovie,
-          onMovieDeletion: this.onMovieDeletion,
-          onMovieModification: this.onMovieModification
-        }
-      );
-    } else {
-      childrenElement = false;
-    }
+		if (this.state.loadingMovies) {
+			content = <li>Chargement de la liste des films en cours</li>
+		} else {
+			content = moviesTag;
+		}
 
-    return (
-      <div>
-        <header className="page-header">
-          <h1>
-            Ma vidéothèque <small>{movies.length} films</small> <Link className="btn btn-success" to="/movie/new">Ajouter</Link>
-          </h1>
-        </header>
-        <SearchBar onSearch={this.onSearch} />
-        <ul className="col-md-4 list-group">
-          {content}
-        </ul>
-        <div className="col-md-8">
-          {childrenElement}
-        </div>
-      </div>
-    );
-  }
+		var childrenElement;
+
+		if (this.props.children) {
+			childrenElement = React.cloneElement(this.props.children, {
+				onMovieFormSaved: this.addMovie,
+				onMovieDeletion: this.onMovieDeletion,
+				onMovieModification: this.onMovieModification
+			});
+		} else {
+			childrenElement = false;
+		}
+
+		return (
+			<div>
+				<header className="page-header">
+					<h1>
+						Ma vidéothèque
+						<small>{movies.length}
+							films</small>
+						<Link className="btn btn-success" to="/movie/new">Ajouter</Link>
+					</h1>
+				</header>
+				<SearchBar onSearch={this.onSearch}/>
+				<ul className="col-md-4 list-group">
+					{content}
+				</ul>
+				<div className="col-md-8">
+					{childrenElement}
+				</div>
+			</div>
+		);
+	}
 });
 
 module.exports = Videotheque;
