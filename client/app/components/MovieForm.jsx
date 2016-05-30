@@ -14,36 +14,42 @@ var MovieForm = React.createClass({
 
 	componentDidMount: function () {
 		var movie = this.props.movie || {};
-	    this.refs.movieTitle.value = movie.title || '';
-	    this.refs.movieReleaseYear.value = movie.releaseYear || '';
-	    this.refs.movieDirectors.value = movie.directors || '';
-	    this.refs.movieActors.value = movie.actors || '';
-	    this.refs.movieSynopsis.value = movie.synopsis || '';
-	    this.refs.movieRate.value = movie.rate || 0;
+		this.refs.movieTitle.value = movie.title || '';
+		this.refs.movieReleaseYear.value = movie.releaseYear || '';
+		this.refs.movieDirectors.value = movie.directors || '';
+		this.refs.movieActors.value = movie.actors || '';
+		this.refs.movieSynopsis.value = movie.synopsis || '';
+		this.refs.movieRate.value = movie.rate || 0;
 	},
 
 	onSubmit: function (e) {
 		e.preventDefault();
 
-		MoviesActionCreator.addMovie({
-	      title: this.refs.movieTitle.value,
-	      releaseYear: this.refs.movieReleaseYear.value,
-	      directors: this.refs.movieDirectors.value,
-	      actors: this.refs.movieActors.value,
-	      synopsis: this.refs.movieSynopsis.value,
-	      rate: this.refs.movieRate.value
-	    });
+		var updatedMovie = {
+			title: this.refs.movieTitle.value,
+			releaseYear: this.refs.movieReleaseYear.value,
+			directors: this.refs.movieDirectors.value,
+			actors: this.refs.movieActors.value,
+			synopsis: this.refs.movieSynopsis.value,
+			rate: this.refs.movieRate.value
+		};
+
+		if (this.props.edition) {
+			this.props.onMovieFormSaved(updatedMovie);
+		} else {
+			MoviesActionCreator.addMovie(updatedMovie);
+		}
 
 		this.resetForm();
 	},
 
 	resetForm: function () {
 		this.refs.movieTitle.value = '';
-	    this.refs.movieReleaseYear.value = '';
-	    this.refs.movieDirectors.value = '';
-	    this.refs.movieActors.value = '';
-	    this.refs.movieSynopsis.value = '';
-	    this.refs.movieRate.value = 0;
+		this.refs.movieReleaseYear.value = '';
+		this.refs.movieDirectors.value = '';
+		this.refs.movieActors.value = '';
+		this.refs.movieSynopsis.value = '';
+		this.refs.movieRate.value = 0;
 	},
 
 	render: function () {

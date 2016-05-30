@@ -63,7 +63,7 @@ var Movie = React.createClass({
 	onMovieModification: function (newData) {
 		var updatedMovie = _.merge(this.state.data, newData);
 
-		this.props.onMovieModification(updatedMovie);
+		MoviesActionCreator.updateMovie(updatedMovie);
 
 		this.closeEditionForm();
 	},

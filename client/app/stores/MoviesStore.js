@@ -49,6 +49,15 @@ dispatcher.register(function (action) {
 				return movie.id != action.movieId;
 			});
 			break;
+		case actionTypes.UPDATE_MOVIE:
+			state.movies = state.movies.map(function (movie) {
+				if (movie.id == action.movie.id) {
+					return action.movie;
+				} else {
+					return movie;
+				}
+			});
+			break;
 		default:
 			return true;
 	}
