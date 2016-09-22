@@ -1,6 +1,6 @@
 /** Styles */
 require('bootstrap/dist/css/bootstrap.min.css');
-require('./styles.css');
+require('./App.css');
 
 /** Polyfills */
 require('babel-polyfill');

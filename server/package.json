@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node ./src/server.js"
+    "start": "node ./server.js"
   },
   "author": "",
   "license": "MIT",

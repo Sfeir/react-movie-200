@@ -6,8 +6,8 @@ module.exports = {
     entry: [
         'webpack/hot/dev-server',
         'webpack-dev-server/client?http://localhost:8080',
-        path.resolve(__dirname, 'src/index.jsx'),
-        path.resolve(__dirname, 'src/index.html'),
+        path.resolve(__dirname, 'app/App.jsx'),
+        path.resolve(__dirname, 'index.html'),
         'babel-polyfill',
         'whatwg-fetch'
     ],
@@ -22,7 +22,7 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.jsx/,
-            loaders: ['react-hot', 'babel']
+            loaders: ['react-hot', 'babel?presets[]=react']
         }, {
             test: /\.(png|jpg)$/,
             loader: 'url?limit=25000'
