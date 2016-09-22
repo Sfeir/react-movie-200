@@ -8,6 +8,8 @@ module.exports = {
         'webpack-dev-server/client?http://localhost:8080',
         path.resolve(__dirname, 'src/index.jsx'),
         path.resolve(__dirname, 'src/index.html'),
+        'babel-polyfill',
+        'whatwg-fetch'
     ],
     output: {
         path: path.resolve(__dirname, 'build'),
