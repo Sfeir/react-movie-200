@@ -1,1 +1,9 @@
+# NPM
 node_modules
+npm-debug.log
+
+# IntelliJ IDEA, WebStorm...
+.idea
+
+# Webpack build
+client/build
