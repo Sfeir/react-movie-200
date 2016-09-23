@@ -2,6 +2,8 @@ var webpack = require('webpack'),
     path = require('path');
 
 module.exports = {
+    cache: true,
+    debug: true,
     devtool: 'inline-source-map',
     entry: [
         'webpack/hot/dev-server',
@@ -11,6 +13,11 @@ module.exports = {
         'babel-polyfill',
         'whatwg-fetch'
     ],
+    resolve:   {
+        packageAlias: 'browser',
+        root:       path.join( __dirname, 'app' ),
+        extensions: ['', '.js', '.jsx']
+    },
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js'
@@ -25,7 +32,7 @@ module.exports = {
             loaders: ['babel?presets[]=react']
         }, {
             test: /\.(png|jpg)$/,
-            loader: 'url?limit=25000'
+            loader: 'url-loader?limit=25000'
         }, {
             test: /\.html$/,
             loader: 'file-loader?name=[name].[ext]'
@@ -34,14 +41,14 @@ module.exports = {
             loader: 'style-loader!css-loader?sourceMap!postcss-loader'
         }, {
            test:   /\.(eot|svg|ttf|otf)(\?.*)?$/,
-           loader: 'file-loader?name=fonts/[name].[ext]'
+           loader: 'url-loader?limit=100000'
         }, {
            test:   /\.woff(2)?(\?.*)?$/,
-           loader: 'file-loader?name=fonts/[name].[ext]'
+           loader: 'url-loader?limit=100000'
         }]
     },
     devServer: {
-        contentBase: 'src',
+        contentBase: 'app',
         stats: { colors: true },
         hot: true,
         proxy: {
