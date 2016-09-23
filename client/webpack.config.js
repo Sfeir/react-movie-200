@@ -22,7 +22,7 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.jsx/,
-            loaders: ['react-hot', 'babel?presets[]=react']
+            loaders: ['babel?presets[]=react']
         }, {
             test: /\.(png|jpg)$/,
             loader: 'url?limit=25000'
