@@ -13,6 +13,7 @@ import Header           from './Header';
 import SearchBar        from './SearchBar';
 import MovieList        from './MovieList';
 import * as MovieApi    from './api/MovieApi';
+import MovieForm        from './MovieForm';
 
 export default class App extends React.Component {
 
@@ -52,6 +53,7 @@ export default class App extends React.Component {
             <div>
                 <Header/>
                 <SearchBar onSearch={this.onSearch.bind(this)}/>
+                <MovieForm/>
                 <MovieList
                     searchKey={this.state.searchKey}
                     movies={this.state.movies}
