@@ -6,3 +6,14 @@ export function getMovieList() {
 export function removeMovie(id) {
     return fetch(`/server/api/movies/${id}`, { method: 'DELETE' });
 }
+
+const headers = {
+    'Accept'        : 'application/json',
+    'Content-Type'  : 'application/json'
+};
+
+export function addMovie (movie) {
+    return fetch('/server/api/movies/', { method: 'POST', headers, body : JSON.stringify(movie) })
+        .then(response => response.json());
+}
+

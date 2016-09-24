@@ -44,6 +44,22 @@ export default class App extends React.Component {
         });
     }
 
+    addMovie(movie) {
+        const newMovie = {
+            title   : movie.title,
+            actors  : movie.actors,
+            synopsis: movie.synopsis
+        };
+
+        MovieApi.addMovie(newMovie).then(movie => {
+            const newMovieList = this.state.movies.concat([movie]);
+
+            this.setState({
+                movies : newMovieList
+            });
+        });
+    }
+
     onSearch(searchKey) {
         this.setState({ searchKey });
     }
@@ -53,7 +69,7 @@ export default class App extends React.Component {
             <div>
                 <Header/>
                 <SearchBar onSearch={this.onSearch.bind(this)}/>
-                <MovieForm/>
+                <MovieForm onMovieFormSaved={this.addMovie.bind(this)}/>
                 <MovieList
                     searchKey={this.state.searchKey}
                     movies={this.state.movies}
