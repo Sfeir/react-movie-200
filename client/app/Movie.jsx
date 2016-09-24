@@ -18,7 +18,7 @@ export default class Movie extends React.Component {
                     <p><b>Prix : </b>{data.price} €</p>
                 </div>
                 <div className="pull-right">
-                    <button className="btn btn-danger">
+                    <button className="btn btn-danger" onClick={() => this.props.onMovieDeletion(data.id)}>
                         <i className="glyphicon glyphicon-trash"/>
                     </button>
                 </div>

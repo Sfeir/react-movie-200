@@ -23,9 +23,18 @@ export default class MovieList extends React.Component {
         });
     }
 
+    onMovieDeletion(movieId) {
+        MovieApi.removeMovie(movieId).then(() => {
+            const filteredMovieList = this.state.movies.filter(movie => movie.id !== movieId);
+            this.setState({
+                movies : filteredMovieList
+            });
+        });
+    }
+
     renderMovie(movie) {
         return (
-            <Movie data={movie} />
+            <Movie data={movie} onMovieDeletion={this.onMovieDeletion.bind(this)} />
         );
     }
 
