@@ -64,6 +64,15 @@ export default class App extends React.Component {
         this.setState({ searchKey });
     }
 
+    onMovieModification(newData) {
+        MovieApi.updateMovie(newData).then(() => {
+            const newMovieList = this.state.movies.map(movie => movie.id === newData.id ? newData : movie);
+            this.setState({
+                movies : newMovieList
+            });
+        });
+    }
+
     render() {
         return (
             <div>
@@ -75,6 +84,7 @@ export default class App extends React.Component {
                     movies={this.state.movies}
                     loadingMovies={this.state.loadingMovies}
                     onMovieDeletion={this.onMovieDeletion.bind(this)}
+                    onMovieModification={this.onMovieModification.bind(this)}
                 />
             </div>
         );

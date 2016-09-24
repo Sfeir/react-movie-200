@@ -17,3 +17,7 @@ export function addMovie (movie) {
         .then(response => response.json());
 }
 
+export function updateMovie (movie) {
+    return fetch(`/server/api/movies/${movie.id}`, { method: 'PUT', headers, body : JSON.stringify(movie) })
+        .then(response => response.json());
+}
