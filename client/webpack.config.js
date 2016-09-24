@@ -28,8 +28,11 @@ module.exports = {
     ],
     module: {
         loaders: [{
+            test: /\.js/,
+            loaders: ['babel?presets[]=es2015,presets[]=stage-0']
+        },{
             test: /\.jsx/,
-            loaders: ['babel?presets[]=react']
+            loaders: ['babel?presets[]=es2015,presets[]=stage-0,presets[]=react']
         }, {
             test: /\.(png|jpg)$/,
             loader: 'url-loader?limit=25000'

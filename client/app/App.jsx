@@ -1,7 +1,7 @@
 /** Styles */
-require('bootstrap/dist/css/bootstrap.min.css');
-require('./App.css');
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 /** Polyfills */
-require('babel-polyfill');
-require('whatwg-fetch');
+import 'babel-polyfill';
+import 'whatwg-fetch';
