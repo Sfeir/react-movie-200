@@ -5,6 +5,10 @@ import Movie from './Movie';
 
 export default class MovieList extends React.Component {
 
+    shouldComponentUpdate(nextProps) {
+        return this.props.searchKey !== nextProps.searchKey || this.props.movies !== nextProps.movies;
+    }
+
     renderMovie(movie) {
         return (
             <Movie key={movie.id} data={movie} onMovieDeletion={this.props.onMovieDeletion} />
