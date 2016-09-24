@@ -9,14 +9,14 @@ import 'whatwg-fetch';
 import React    from 'react';
 import ReactDOM from 'react-dom';
 
+import Header from './Header';
+
 export default class App extends React.Component {
 
     render() {
         return (
             <div>
-                <header className="col-md-12">
-                    <h2>ReactMovie</h2>
-                </header>
+                <Header/>
 
                 <ul className="thumbnails list-unstyled">
                     <li className="col-md-12 row">
