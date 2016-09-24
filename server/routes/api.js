@@ -90,11 +90,11 @@ exports.updateMovie = function(req, res) {
 	_.forEach(MOVIES, function (movie, index) {
 		if (movie.id == id) {
 			MOVIES[index] = movietoUpdate;
-			return res.status(200).json({});
+			return res.status(200).json(movietoUpdate);
 		}
 	});
 
-	return res.status(304).end();
+	return res.status(304).json(movietoUpdate);
 };
 
 
