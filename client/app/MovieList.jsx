@@ -39,22 +39,33 @@ const MOVIES = [
 export default class MovieList extends React.Component {
 
     state = {
-        movies : []
+        movies  : [],
+        loading : false
     };
 
     componentWillMount() {
+        this.setState({
+            loading : true
+        });
         setTimeout(() => {
             this.setState({
-                movies : MOVIES
+                movies  : MOVIES,
+                loading : false
             });
         }, 1000);
     }
 
+    renderMovie(movie) {
+        return (
+            <Movie data={movie} />
+        );
+    }
+
     render() {
-        const movies = this.state.movies.map(movie => <Movie data={movie} />);
+        const content = this.state.loading ? <li>Chargement des films</li> : this.state.movies.map(this.renderMovie.bind(this));
         return (
             <ul className="thumbnails list-unstyled">
-                {movies}
+                {content}
             </ul>
         );
     }
