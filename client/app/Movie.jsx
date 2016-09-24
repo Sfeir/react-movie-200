@@ -15,6 +15,9 @@ export default class Movie extends React.Component {
     renderActionButtons(data) {
         return (
             <div className="pull-right">
+                <button className="btn btn-default">
+                    <i className="glyphicon glyphicon-pencil" />
+                </button>
                 <button className="btn btn-danger" onClick={() => this.props.onMovieDeletion(data.id)}>
                     <i className="glyphicon glyphicon-trash"/>
                 </button>
