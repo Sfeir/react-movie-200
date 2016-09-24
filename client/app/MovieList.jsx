@@ -38,8 +38,20 @@ const MOVIES = [
 
 export default class MovieList extends React.Component {
 
+    state = {
+        movies : []
+    };
+
+    componentWillMount() {
+        setTimeout(() => {
+            this.setState({
+                movies : MOVIES
+            });
+        }, 1000);
+    }
+
     render() {
-        const movies = MOVIES.map(movie => <Movie data={movie} />);
+        const movies = this.state.movies.map(movie => <Movie data={movie} />);
         return (
             <ul className="thumbnails list-unstyled">
                 {movies}
