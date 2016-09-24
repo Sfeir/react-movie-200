@@ -10,3 +10,7 @@ header {
 .caption h3 {
   margin-top: 0px;
 }
+
+.search-bar-container {
+  margin: 15px 0;
+}

@@ -10,6 +10,7 @@ import React    from 'react';
 import ReactDOM from 'react-dom';
 
 import Header       from './Header';
+import SearchBar    from './SearchBar';
 import MovieList    from './MovieList';
 
 export default class App extends React.Component {
@@ -18,6 +19,7 @@ export default class App extends React.Component {
         return (
             <div>
                 <Header/>
+                <SearchBar/>
                 <MovieList/>
             </div>
         );
