@@ -7,7 +7,7 @@ export default class MovieList extends React.Component {
 
     renderMovie(movie) {
         return (
-            <Movie data={movie} onMovieDeletion={this.props.onMovieDeletion} />
+            <Movie key={movie.id} data={movie} onMovieDeletion={this.props.onMovieDeletion} />
         );
     }
 
