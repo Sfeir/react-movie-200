@@ -18,7 +18,8 @@ export default class App extends React.Component {
 
     state = {
         movies  : [],
-        loadingMovies : false
+        loadingMovies : false,
+        searchKey : ''
     };
 
     componentWillMount() {
@@ -42,14 +43,20 @@ export default class App extends React.Component {
         });
     }
 
+    onSearch(searchKey) {
+        this.setState({ searchKey });
+    }
+
     render() {
+        const { searchKey, movies, loadingMovies } = this.state;
+        const displayedMovies = movies.filter(movie => movie.title.toLowerCase().match(searchKey.toLowerCase()));
         return (
             <div>
                 <Header/>
-                <SearchBar/>
+                <SearchBar onSearch={this.onSearch.bind(this)}/>
                 <MovieList
-                    movies={this.state.movies}
-                    loadingMovies={this.state.loadingMovies}
+                    movies={displayedMovies}
+                    loadingMovies={loadingMovies}
                     onMovieDeletion={this.onMovieDeletion.bind(this)}
                 />
             </div>
