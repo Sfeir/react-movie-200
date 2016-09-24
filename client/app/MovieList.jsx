@@ -12,7 +12,9 @@ export default class MovieList extends React.Component {
     }
 
     render() {
-        const content = this.props.loadingMovies ? <li>Chargement des films</li> : this.props.movies.map(this.renderMovie.bind(this));
+        const searchKey = this.props.searchKey;
+        const filteredMovies = this.props.movies.filter(movie => movie.title.toLowerCase().match(searchKey.toLowerCase()));
+        const content = this.props.loadingMovies ? <li>Chargement des films</li> : filteredMovies.map(this.renderMovie.bind(this));
         return (
             <ul className="thumbnails list-unstyled">
                 {content}

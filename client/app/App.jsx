@@ -48,15 +48,14 @@ export default class App extends React.Component {
     }
 
     render() {
-        const { searchKey, movies, loadingMovies } = this.state;
-        const displayedMovies = movies.filter(movie => movie.title.toLowerCase().match(searchKey.toLowerCase()));
         return (
             <div>
                 <Header/>
                 <SearchBar onSearch={this.onSearch.bind(this)}/>
                 <MovieList
-                    movies={displayedMovies}
-                    loadingMovies={loadingMovies}
+                    searchKey={this.state.searchKey}
+                    movies={this.state.movies}
+                    loadingMovies={this.state.loadingMovies}
                     onMovieDeletion={this.onMovieDeletion.bind(this)}
                 />
             </div>
