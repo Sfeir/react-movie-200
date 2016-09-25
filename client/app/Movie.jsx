@@ -69,18 +69,20 @@ export default class Movie extends React.Component {
               afficheUrl = data.poster || 'server/img/no-poster.jpg';
         const actionButtons = this.state.selected ? this.renderActionButtons(data) : null;
         return (
-            <div>
-                <img src={afficheUrl} className="col-md-2" />
-                <div className="caption col-md-8 pull-left">
-                    <h3>{data.title}</h3>
+            <div className="row">
+                <img src={afficheUrl} className="col-md-3" />
+                <div className="caption col-md-9">
+                    <h3>{data.title} {actionButtons} </h3>
                     <p><b>Année de sortie : </b>{data.releaseYear}</p>
                     <p><b>Réalisateurs : </b>{data.directors}</p>
                     <p><b>Acteurs : </b>{data.actors}</p>
                     <p><b>Synopsis : </b>{data.synopsis}</p>
-                    <p><b>Prix : </b>{data.price} €</p>
+                    <p><b>Vu le : </b>{data.lastViewDate}</p>
+                    <p><b>Prix : </b>{data.price}</p>
+                    <p><b>Note : </b>{data.rate}</p>
                 </div>
-                {actionButtons}
             </div>
+
         );
     }
 
