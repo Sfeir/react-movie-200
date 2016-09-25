@@ -37,11 +37,11 @@ export default class MovieForm extends React.Component {
     renderSaveButton() {
         if(!this.props.movie && this.props.movie.id) {
             return (
-                <input type="submit" className="btn btn-primary">Modifier</input>
+                <button type="submit" className="btn btn-primary">Modifier</button>
             );
         } else {
             return (
-                <input type="submit" className="btn btn-primary">Ajouter</input>
+                <button type="submit" className="btn btn-primary">Ajouter</button>
             );
         }
     }
@@ -78,7 +78,7 @@ export default class MovieForm extends React.Component {
                 <div className="form-group">
                     <label className="col-sm-4 control-label">Synopsis :</label>
                     <div className="col-sm-7">
-                        <textarea type="text" ref="movieSynopsis" className="form-control" ></textarea>
+                        <textarea type="text" ref="movieSynopsis" className="form-control"/>
                     </div>
                 </div>
                 <div className="form-group">

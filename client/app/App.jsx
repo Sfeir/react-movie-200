@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
 
 import Header           from './Header';
 import SearchBar        from './SearchBar';
-import MovieList        from './MovieList';
+import Videotheque      from './Videotheque';
 import * as MovieApi    from './api/MovieApi';
 import MovieForm        from './MovieForm';
 
@@ -79,7 +79,7 @@ export default class App extends React.Component {
                 <Header/>
                 <SearchBar onSearch={this.onSearch.bind(this)}/>
                 <MovieForm onMovieFormSaved={this.addMovie.bind(this)}/>
-                <MovieList
+                <Videotheque
                     searchKey={this.state.searchKey}
                     movies={this.state.movies}
                     loadingMovies={this.state.loadingMovies}
