@@ -1,11 +1,3 @@
-/** Styles */
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-
-/** Polyfills */
-import 'babel-polyfill';
-import 'whatwg-fetch';
-
 import React    from 'react';
 import ReactDOM from 'react-dom';
 
@@ -91,5 +83,3 @@ export default class App extends React.Component {
         );
     }
 }
-
-ReactDOM.render(<App />, document.getElementById('main'));

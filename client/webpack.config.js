@@ -6,7 +6,7 @@ module.exports = {
     cache: true,
     devtool: 'inline-source-map',
     entry: {
-        bundle : path.resolve(__dirname, 'app/App.jsx'),
+        bundle : path.resolve(__dirname, 'app/Main.jsx'),
     },
     resolve:   {
         aliasFields: ['browser'],
