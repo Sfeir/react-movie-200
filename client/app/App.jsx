@@ -14,6 +14,7 @@ import SearchBar        from './SearchBar';
 import Videotheque      from './Videotheque';
 import * as MovieApi    from './api/MovieApi';
 import MovieForm        from './MovieForm';
+import Home             from './Home';
 
 export default class App extends React.Component {
 
