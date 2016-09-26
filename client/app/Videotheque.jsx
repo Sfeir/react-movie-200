@@ -14,11 +14,13 @@ export default class Videotheque extends React.Component {
     };
 
     static childContextTypes = {
-        onMovieFormSaved : PropTypes.func
+        onMovieDeletion : PropTypes.func,
+        onMovieFormSaved : PropTypes.func,
     };
 
     getChildContext() {
         return {
+            onMovieDeletion : this.onMovieDeletion.bind(this),
             onMovieFormSaved : this.addMovie.bind(this)
         };
     }
