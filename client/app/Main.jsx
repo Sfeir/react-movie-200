@@ -10,13 +10,19 @@ import React    from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
+import Home from './Home';
 
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 const Main = (
     <Router>
-        <Route path="/" component={App}/>
+        <App>
+            <Switch>
+                <Route path="/home" component={Home}/>
+                <Route component={Home}/>
+            </Switch>
+        </App>
     </Router>
 );
 

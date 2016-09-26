@@ -1,7 +1,6 @@
 import React    from 'react';
 
 import Header           from './Header';
-import Videotheque      from './Videotheque';
 
 export default class App extends React.Component {
 
@@ -9,7 +8,7 @@ export default class App extends React.Component {
         return (
             <div>
                 <Header/>
-                <Videotheque/>
+                {this.props.children}
             </div>
         );
     }
