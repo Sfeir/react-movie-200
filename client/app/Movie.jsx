@@ -7,7 +7,8 @@ import * as MovieApi from './api/MovieApi';
 export default class Movie extends React.Component {
 
     static contextTypes = {
-        onMovieDeletion : PropTypes.func
+        onMovieDeletion : PropTypes.func,
+        onMovieModification : PropTypes.func
     };
 
     state = {
@@ -60,7 +61,7 @@ export default class Movie extends React.Component {
     onMovieModification(newData) {
         const updatedMovie = Object.assign({}, this.state.data, newData);
 
-        this.props.onMovieModification(updatedMovie);
+        this.context.onMovieModification(updatedMovie);
 
         this.closeEditionForm();
     }
