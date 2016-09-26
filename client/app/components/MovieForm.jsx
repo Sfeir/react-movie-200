@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import * as MoviesActionCreator from '../actions/MoviesActionCreator';
+
 export default class MovieForm extends React.Component {
 
     static defaultProps = {
@@ -11,27 +13,25 @@ export default class MovieForm extends React.Component {
         }
     };
 
-    static contextTypes = {
-        onMovieFormSaved : PropTypes.func
-    };
-
     componentDidMount() {
         this.refs.movieTitle.value = this.props.movie.title || '';
         this.refs.movieActors.value = this.props.movie.actors || '';
         this.refs.movieSynopsis.value = this.props.movie.synopsis || '';
         this.refs.movieReleaseYear.value = this.props.movie.releaseYear || '';
         this.refs.movieRate.value = this.props.movie.rate || '';
+        this.refs.movieDirector.value = this.props.movie.directors || '';
     }
 
     onSubmit(e) {
         e.preventDefault();
 
-        this.context.onMovieFormSaved({
+        MoviesActionCreator.addMovie({
             title   : this.refs.movieTitle.value,
             actors  : this.refs.movieActors.value,
             synopsis: this.refs.movieSynopsis.value,
             releaseYear: this.refs.movieReleaseYear.value,
             rate: this.refs.movieRate.value,
+            directors: this.refs.movieDirector.value
         });
 
         this.resetForm();
@@ -44,6 +44,7 @@ export default class MovieForm extends React.Component {
         this.refs.movieActors.value = '';
         this.refs.movieSynopsis.value = '';
         this.refs.movieRate.value = '';
+        this.refs.movieDirector.value = '';
     }
 
     renderSaveButton() {

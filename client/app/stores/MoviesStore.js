@@ -43,6 +43,9 @@ dispatcher.register(function (action) {
         case ActionTypes.SEARCH_MOVIES:
             state.searchKey = action.searchKey;
             break;
+        case ActionTypes.ADD_MOVIE:
+            state.movies.push(action.newMovie);
+            break;
         default:
             return;
     }

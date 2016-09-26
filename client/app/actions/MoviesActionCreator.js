@@ -26,3 +26,12 @@ export function searchMovie(searchKey) {
         searchKey
     });
 }
+
+export function addMovie(movie) {
+    MovieApi.addMovie(movie).then(newMovie => {
+        dispatcher.dispatch({
+            actionType : actionTypes.ADD_MOVIE,
+            newMovie
+        });
+    });
+}
