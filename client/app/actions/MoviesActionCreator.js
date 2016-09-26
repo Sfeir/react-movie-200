@@ -10,3 +10,12 @@ export function fetchMovies() {
         });
     });
 }
+
+export function findMovie(id) {
+    MovieApi.getMovie(id).then(movie => {
+        dispatcher.dispatch({
+            actionType : actionTypes.FIND_MOVIE,
+            movie
+        });
+    });
+}

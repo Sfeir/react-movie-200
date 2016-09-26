@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import MovieForm from './MovieForm';
 import * as MovieApi from '../api/MovieApi';
 
+import MoviesStore from '../stores/MoviesStore';
+import * as MoviesActionCreator from '../actions/MoviesActionCreator';
+
 export default class Movie extends React.Component {
 
     static contextTypes = {
@@ -17,8 +20,20 @@ export default class Movie extends React.Component {
         data: {}
     };
 
+    updateMovie = () => {
+        this.setState({ data : MoviesStore.state.movie });
+    };
+
+    componentWillMount() {
+        MoviesStore.addChangeListener(this.updateMovie);
+    }
+
     componentDidMount() {
-        this.fetchMovie();
+        this.findMovie();
+    }
+
+    componentWillUnmount() {
+        MoviesStore.removeChangeListener(this.updateMovie);
     }
 
     componentDidUpdate(prevProps) {
@@ -26,31 +41,24 @@ export default class Movie extends React.Component {
         const newId = this.props.match.params.id;
 
         if( newId && oldId !== newId ) {
-            this.fetchMovie();
+            this.findMovie();
         }
     }
 
-    fetchMovie() {
-        MovieApi.getMovie(this.props.match.params.id)
-                .then( movie => this.setState( { data : movie } ) );
+    findMovie() {
+        MoviesActionCreator.findMovie(this.props.match.params.id);
     }
 
     onSelect() {
-        this.setState({
-            selected : true
-        });
+        this.setState({ selected : true });
     }
 
     openEditionForm() {
-        this.setState({
-            editing : true
-        });
+        this.setState({ editing : true });
     }
 
     closeEditionForm() {
-        this.setState({
-            editing : false
-        });
+        this.setState({ editing : false });
     }
 
     onCancelModification(event) {
