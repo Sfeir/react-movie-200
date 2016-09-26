@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import SearchBar        from './SearchBar';
@@ -11,6 +12,16 @@ export default class Videotheque extends React.Component {
         loadingMovies : false,
         searchKey : ''
     };
+
+    static childContextTypes = {
+        onMovieFormSaved : PropTypes.func
+    };
+
+    getChildContext() {
+        return {
+            onMovieFormSaved : this.addMovie.bind(this)
+        };
+    }
 
     componentWillMount() {
         this.setState({

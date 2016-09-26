@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class MovieForm extends React.Component {
 
@@ -8,6 +9,10 @@ export default class MovieForm extends React.Component {
             actors  : '',
             synopsis: ''
         }
+    };
+
+    static contextTypes = {
+        onMovieFormSaved : PropTypes.func
     };
 
     componentDidMount() {
@@ -21,7 +26,7 @@ export default class MovieForm extends React.Component {
     onSubmit(e) {
         e.preventDefault();
 
-        this.props.onMovieFormSaved({
+        this.context.onMovieFormSaved({
             title   : this.refs.movieTitle.value,
             actors  : this.refs.movieActors.value,
             synopsis: this.refs.movieSynopsis.value,
@@ -54,7 +59,6 @@ export default class MovieForm extends React.Component {
     }
 
     render() {
-        const cancelBtn = this.props.edition ? <button className="btn btn-danger pull-right" onClick={this.props.onCancel}>Cancel</button> : false;
         const saveButton = this.renderSaveButton();
         return (
             <form className="form-horizontal" onSubmit={this.onSubmit.bind(this)}>
