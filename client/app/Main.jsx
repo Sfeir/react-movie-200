@@ -1,6 +1,6 @@
 /** Styles */
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './components/App.css';
 
 /** Polyfills */
 import 'babel-polyfill';
@@ -9,11 +9,11 @@ import 'whatwg-fetch';
 import React    from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
-import Home from './Home';
-import Videotheque from './Videotheque';
-import Movie from './Movie';
-import MovieForm from './MovieForm';
+import App from './components/App';
+import Home from './components/Home';
+import Videotheque from './components/Videotheque';
+import Movie from './components/Movie';
+import MovieForm from './components/MovieForm';
 
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 

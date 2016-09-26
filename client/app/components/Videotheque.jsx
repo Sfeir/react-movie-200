@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import SearchBar        from './SearchBar';
-import * as MovieApi    from './api/MovieApi';
+import * as MovieApi    from '../api/MovieApi';
 
 export default class Videotheque extends React.Component {
 
