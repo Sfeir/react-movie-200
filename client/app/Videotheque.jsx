@@ -1,6 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import Movie            from './Movie';
 import SearchBar        from './SearchBar';
 import MovieForm        from './MovieForm';
 import * as MovieApi    from './api/MovieApi';
@@ -58,17 +58,9 @@ export default class Videotheque extends React.Component {
 
     renderMovieListItem(movie) {
         return (
-            <li className="list-group-item" key={movie.id}><a>{movie.title}</a></li>
-        );
-    }
-
-    renderMovieContent(movie) {
-        return (
-            <Movie key={movie.id}
-                   data={movie}
-                   onMovieDeletion={this.onMovieDeletion.bind(this)}
-                   onMovieModification={this.onMovieModification.bind(this)}
-            />
+            <li className="list-group-item" key={movie.id}>
+                <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
+            </li>
         );
     }
 
@@ -84,7 +76,6 @@ export default class Videotheque extends React.Component {
         const filteredMovies = movies.filter( movie => movie.title.toLowerCase().match( searchKey.toLowerCase() ) );
 
         const content = loadingMovies ? this.renderLoading() : filteredMovies.map( this.renderMovieListItem.bind( this ) );
-        const firstMovieContent = filteredMovies.length > 0 ? this.renderMovieContent(filteredMovies[0]) : null;
 
         return (
             <div>
@@ -97,7 +88,7 @@ export default class Videotheque extends React.Component {
                     {content}
                 </ul>
                 <div className="col-md-8">
-                    {firstMovieContent}
+                    {this.props.children}
                 </div>
             </div>
         );
