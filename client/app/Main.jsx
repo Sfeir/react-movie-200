@@ -13,6 +13,7 @@ import App from './App';
 import Home from './Home';
 import Videotheque from './Videotheque';
 import Movie from './Movie';
+import MovieForm from './MovieForm';
 
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -25,6 +26,7 @@ const Main = (
                 <Videotheque>
                     <Switch>
                         <Route path="/movies"/>
+                        <Route path="/movie/new" component={MovieForm} />
                         <Route path="/movie/:id" component={Movie} />
                     </Switch>
                 </Videotheque>
