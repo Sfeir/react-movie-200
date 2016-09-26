@@ -47,6 +47,8 @@ export default class Videotheque extends React.Component {
             this.setState({
                 movies : filteredMovieList
             });
+
+            this.context.router.history.push('/movies');
         });
     }
 
@@ -73,6 +75,8 @@ export default class Videotheque extends React.Component {
             this.setState({
                 movies : newMovieList
             });
+
+            this.context.router.history.push('/movies');
         });
     }
 
