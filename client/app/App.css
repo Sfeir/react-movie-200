@@ -1,3 +1,7 @@
+body li {
+  list-style-type: none;
+}
+
 header {
   border-bottom: 1px solid #eee;
   margin-bottom: 15px;

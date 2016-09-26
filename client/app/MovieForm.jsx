@@ -11,9 +11,11 @@ export default class MovieForm extends React.Component {
     };
 
     componentDidMount() {
-        this.refs.movieTitle.value = this.props.movie.title;
-        this.refs.movieActors.value = this.props.movie.actors;
-        this.refs.movieSynopsis.value = this.props.movie.synopsis;
+        this.refs.movieTitle.value = this.props.movie.title || '';
+        this.refs.movieActors.value = this.props.movie.actors || '';
+        this.refs.movieSynopsis.value = this.props.movie.synopsis || '';
+        this.refs.movieReleaseYear.value = this.props.movie.releaseYear || '';
+        this.refs.movieRate.value = this.props.movie.rate || '';
     }
 
     onSubmit(e) {
@@ -22,7 +24,9 @@ export default class MovieForm extends React.Component {
         this.props.onMovieFormSaved({
             title   : this.refs.movieTitle.value,
             actors  : this.refs.movieActors.value,
-            synopsis: this.refs.movieSynopsis.value
+            synopsis: this.refs.movieSynopsis.value,
+            releaseYear: this.refs.movieReleaseYear.value,
+            rate: this.refs.movieRate.value,
         });
 
         this.resetForm();
@@ -30,12 +34,15 @@ export default class MovieForm extends React.Component {
 
     resetForm() {
         this.refs.movieTitle.value = '';
+        this.refs.movieReleaseYear.value = '';
+        this.refs.movieDirector.value = '';
         this.refs.movieActors.value = '';
         this.refs.movieSynopsis.value = '';
+        this.refs.movieRate.value = '';
     }
 
     renderSaveButton() {
-        if(!this.props.movie && this.props.movie.id) {
+        if(this.props.edition) {
             return (
                 <button type="submit" className="btn btn-primary">Modifier</button>
             );
@@ -50,7 +57,7 @@ export default class MovieForm extends React.Component {
         const cancelBtn = this.props.edition ? <button className="btn btn-danger pull-right" onClick={this.props.onCancel}>Cancel</button> : false;
         const saveButton = this.renderSaveButton();
         return (
-            <form className="form-horizontal">
+            <form className="form-horizontal" onSubmit={this.onSubmit.bind(this)}>
                 <div className="form-group">
                     <label className="col-sm-4 control-label">Titre :</label>
                     <div className="col-sm-7">
