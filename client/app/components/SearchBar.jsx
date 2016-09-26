@@ -1,10 +1,12 @@
 import React from 'react';
 
+import * as MoviesActionCreator from '../actions/MoviesActionCreator';
+
 export default class SearchBar extends React.Component {
 
     onSearch() {
         const searchKey = this.refs.searchBar.value;
-        this.props.onSearch(searchKey);
+        MoviesActionCreator.searchMovie(searchKey);
     }
 
     render() {

@@ -22,8 +22,7 @@ export default class Videotheque extends React.Component {
 
     state = {
         movies : [],
-        loadingMovies : false,
-        searchKey : ''
+        loadingMovies : false
     };
 
     getChildContext() {
@@ -35,7 +34,7 @@ export default class Videotheque extends React.Component {
     }
 
     updateMovies = (storeState) => {
-        this.setState( { movies: storeState.movies } );
+        this.setState( { movies: storeState.displayedMovies } );
     };
 
     componentWillMount() {
@@ -70,10 +69,6 @@ export default class Videotheque extends React.Component {
         });
     }
 
-    onSearch(searchKey) {
-        this.setState({ searchKey });
-    }
-
     onMovieModification(newData) {
         MovieApi.updateMovie(newData).then(() => {
             const newMovieList = this.state.movies.map( movie => movie.id === newData.id ? newData : movie );
@@ -101,11 +96,9 @@ export default class Videotheque extends React.Component {
     }
 
     render() {
-        const { searchKey, loadingMovies, movies } = this.state;
+        const { loadingMovies, movies } = this.state;
 
-        const filteredMovies = movies.filter( movie => movie.title.toLowerCase().match( searchKey.toLowerCase() ) );
-
-        const content = loadingMovies ? this.renderLoading() : filteredMovies.map( this.renderMovieListItem.bind( this ) );
+        const content = loadingMovies ? this.renderLoading() : movies.map( this.renderMovieListItem.bind( this ) );
 
         return (
             <div>
@@ -114,7 +107,7 @@ export default class Videotheque extends React.Component {
                         Ma vidéothèque <small>{movies.length} films</small> <Link className="btn btn-success" to="/movie/new">Ajouter</Link>
                     </h1>
                 </header>
-                <SearchBar onSearch={this.onSearch.bind(this)}/>
+                <SearchBar/>
                 <ul className="col-md-4 list-group">
                     {content}
                 </ul>

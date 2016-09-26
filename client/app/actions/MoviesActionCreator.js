@@ -19,3 +19,10 @@ export function findMovie(id) {
         });
     });
 }
+
+export function searchMovie(searchKey) {
+    dispatcher.dispatch({
+        actionType : actionTypes.SEARCH_MOVIES,
+        searchKey
+    });
+}

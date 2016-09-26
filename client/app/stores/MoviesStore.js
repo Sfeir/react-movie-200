@@ -1,11 +1,13 @@
 import dispatcher from '../Dispatcher';
-import actionTypes from '../actions/ActionTypes';
+import ActionTypes from '../actions/ActionTypes';
 import { EventEmitter } from 'events';
 
 
 let state = {
     movies: [],
-    movie : {}
+    movie : {},
+    searchKey : '',
+    displayedMovies : []
 };
 
 class MovieStore extends EventEmitter {
@@ -32,15 +34,20 @@ export default store;
 
 dispatcher.register(function (action) {
     switch (action.actionType) {
-        case actionTypes.FETCH_MOVIES:
+        case ActionTypes.FETCH_MOVIES:
             state.movies = action.movies;
             break;
-        case actionTypes.FIND_MOVIE:
+        case ActionTypes.FIND_MOVIE:
             state.movie = action.movie;
+            break;
+        case ActionTypes.SEARCH_MOVIES:
+            state.searchKey = action.searchKey;
             break;
         default:
             return;
     }
+
+    state.displayedMovies = state.movies.filter( movie => movie.title.toLowerCase().match( state.searchKey.toLowerCase() ) );
 
     store.emitChange(state);
 });
