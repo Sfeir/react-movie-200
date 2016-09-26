@@ -7,16 +7,20 @@ import * as MovieApi    from './api/MovieApi';
 
 export default class Videotheque extends React.Component {
 
-    state = {
-        movies : [],
-        loadingMovies : false,
-        searchKey : ''
+    static contextTypes = {
+        router : PropTypes.object
     };
 
     static childContextTypes = {
         onMovieDeletion : PropTypes.func,
         onMovieFormSaved : PropTypes.func,
         onMovieModification : PropTypes.func
+    };
+
+    state = {
+        movies : [],
+        loadingMovies : false,
+        searchKey : ''
     };
 
     getChildContext() {
@@ -39,7 +43,7 @@ export default class Videotheque extends React.Component {
 
     onMovieDeletion(movieId) {
         MovieApi.removeMovie(movieId).then(() => {
-            const filteredMovieList = this.state.movies.filter(movie => movie.id !== movieId)
+            const filteredMovieList = this.state.movies.filter(movie => movie.id !== movieId);
             this.setState({
                 movies : filteredMovieList
             });
@@ -53,6 +57,8 @@ export default class Videotheque extends React.Component {
             this.setState({
                 movies : newMovieList
             });
+
+            this.context.router.history.push('/movies');
         });
     }
 
