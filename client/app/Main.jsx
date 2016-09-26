@@ -11,7 +11,14 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 
-// Faire le routing ici
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 
-ReactDOM.render(<App />, document.getElementById('main'));
+const Main = (
+    <Router>
+        <Route path="/" component={App}/>
+    </Router>
+);
+
+
+ReactDOM.render(Main, document.getElementById('main'));
