@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import SearchBar        from './SearchBar';
-import MovieForm        from './MovieForm';
 import * as MovieApi    from './api/MovieApi';
 
 export default class Videotheque extends React.Component {
@@ -79,7 +78,6 @@ export default class Videotheque extends React.Component {
 
         return (
             <div>
-                <MovieForm onMovieFormSaved={this.addMovie.bind(this)}/>
                 <header className="page-header">
                     <h1>
                         Ma vidéothèque <small>{movies.length} films</small> <Link className="btn btn-success" to="/movie/new">Ajouter</Link>
