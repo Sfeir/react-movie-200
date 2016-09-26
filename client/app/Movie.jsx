@@ -1,14 +1,33 @@
 import React from 'react';
-import _     from 'lodash';
 
 import MovieForm from './MovieForm';
+import * as MovieApi from './api/MovieApi';
 
 export default class Movie extends React.Component {
 
     state = {
         selected : false,
-        editing  : false
+        editing  : false,
+        data: {}
     };
+
+    componentDidMount() {
+        this.fetchMovie();
+    }
+
+    componentDidUpdate(prevProps) {
+        const oldId = prevProps.match.params.id;
+        const newId = this.props.match.params.id;
+
+        if( newId && oldId !== newId ) {
+            this.fetchMovie();
+        }
+    }
+
+    fetchMovie() {
+        MovieApi.getMovie(this.props.match.params.id)
+                .then( movie => this.setState( { data : movie } ) );
+    }
 
     onSelect() {
         this.setState({
@@ -34,7 +53,7 @@ export default class Movie extends React.Component {
     }
 
     onMovieModification(newData) {
-        const updatedMovie = Object.assign({}, this.props.data, newData);
+        const updatedMovie = Object.assign({}, this.state.data, newData);
 
         this.props.onMovieModification(updatedMovie);
 
@@ -57,7 +76,7 @@ export default class Movie extends React.Component {
     renderForm() {
         return (
             <MovieForm edition={true}
-                movie={this.props.data}
+                movie={this.state.data}
                 onCancel={this.onCancelModification.bind(this)}
                 onMovieFormSaved={this.onMovieModification.bind(this)}
             />
@@ -65,7 +84,7 @@ export default class Movie extends React.Component {
     }
 
     renderContent() {
-        const data = this.props.data,
+        const data = this.state.data,
               afficheUrl = data.poster || 'server/img/no-poster.jpg';
         const actionButtons = this.state.selected ? this.renderActionButtons(data) : null;
         return (
