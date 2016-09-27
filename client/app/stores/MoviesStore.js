@@ -50,6 +50,9 @@ dispatcher.register(function (action) {
             // action.movieId est une String et movie.id est un Number, d'où le != au lieu du !==
             state.movies = state.movies.filter((movie) => movie.id != action.movieId);
             break;
+        case ActionTypes.UPDATE_MOVIE:
+            state.movies = state.movies.map(movie => movie.id == action.movie.id ? action.movie : movie);
+            break;
         default:
             return;
     }

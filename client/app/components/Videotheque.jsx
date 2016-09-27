@@ -10,24 +10,10 @@ import * as MoviesActionCreator from '../actions/MoviesActionCreator';
 
 export default class Videotheque extends React.Component {
 
-    static contextTypes = {
-        router : PropTypes.object
-    };
-
-    static childContextTypes = {
-        onMovieModification : PropTypes.func
-    };
-
     state = {
         movies : [],
         loadingMovies : false
     };
-
-    getChildContext() {
-        return {
-            onMovieModification : this.onMovieModification.bind(this)
-        };
-    }
 
     updateMovies = (storeState) => {
         this.setState( { movies: storeState.displayedMovies } );
@@ -40,18 +26,6 @@ export default class Videotheque extends React.Component {
 
     componentWillUnmount() {
         MoviesStore.removeChangeListener(this.updateMovies);
-    }
-
-    onMovieModification(newData) {
-        MovieApi.updateMovie(newData).then(() => {
-            const newMovieList = this.state.movies.map( movie => movie.id === newData.id ? newData : movie );
-
-            this.setState({
-                movies : newMovieList
-            });
-
-            this.context.router.history.push('/movies');
-        });
     }
 
     renderMovieListItem(movie) {

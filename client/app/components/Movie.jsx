@@ -9,8 +9,7 @@ import * as MoviesActionCreator from '../actions/MoviesActionCreator';
 export default class Movie extends React.Component {
 
     static contextTypes = {
-        router : PropTypes.object,
-        onMovieModification : PropTypes.func
+        router : PropTypes.object
     };
 
     state = {
@@ -71,14 +70,6 @@ export default class Movie extends React.Component {
         this.closeEditionForm();
     }
 
-    onMovieModification(newData) {
-        const updatedMovie = Object.assign({}, this.state.data, newData);
-
-        this.context.onMovieModification(updatedMovie);
-
-        this.closeEditionForm();
-    }
-
     renderActionButtons(data) {
         return (
             <div className="pull-right">
@@ -97,7 +88,6 @@ export default class Movie extends React.Component {
             <MovieForm edition={true}
                 movie={this.state.data}
                 onCancel={this.onCancelModification.bind(this)}
-                onMovieFormSaved={this.onMovieModification.bind(this)}
             />
         );
     }

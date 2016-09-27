@@ -44,3 +44,12 @@ export function deleteMovie(id) {
         });
     });
 }
+
+export function updateMovie(movie) {
+    MovieApi.updateMovie(movie).then(movie => {
+        dispatcher.dispatch({
+            actionType: actionTypes.UPDATE_MOVIE,
+            movie
+        });
+    });
+}

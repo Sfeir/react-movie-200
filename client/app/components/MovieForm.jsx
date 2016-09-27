@@ -5,6 +5,10 @@ import * as MoviesActionCreator from '../actions/MoviesActionCreator';
 
 export default class MovieForm extends React.Component {
 
+    static contextTypes = {
+        router : PropTypes.object
+    };
+
     static defaultProps = {
         movie : {
             title   : '',
@@ -25,7 +29,7 @@ export default class MovieForm extends React.Component {
     onSubmit(e) {
         e.preventDefault();
 
-        MoviesActionCreator.addMovie({
+        const updatedMovie = Object.assign({}, this.props.movie, {
             title   : this.refs.movieTitle.value,
             actors  : this.refs.movieActors.value,
             synopsis: this.refs.movieSynopsis.value,
@@ -33,6 +37,14 @@ export default class MovieForm extends React.Component {
             rate: this.refs.movieRate.value,
             directors: this.refs.movieDirector.value
         });
+
+        if (this.props.edition) {
+            MoviesActionCreator.updateMovie(updatedMovie);
+        } else {
+            MoviesActionCreator.addMovie(updatedMovie);
+        }
+
+        this.context.router.history.push('/movies');
 
         this.resetForm();
     }
