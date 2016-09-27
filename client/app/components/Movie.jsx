@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MovieForm from './MovieForm';
-import * as MovieApi from '../api/MovieApi';
 
 import MoviesStore from '../stores/MoviesStore';
 import * as MoviesActionCreator from '../actions/MoviesActionCreator';
@@ -10,7 +9,6 @@ import * as MoviesActionCreator from '../actions/MoviesActionCreator';
 export default class Movie extends React.Component {
 
     static contextTypes = {
-        onMovieDeletion : PropTypes.func,
         onMovieModification : PropTypes.func
     };
 
@@ -43,6 +41,10 @@ export default class Movie extends React.Component {
         if( newId && oldId !== newId ) {
             this.findMovie();
         }
+    }
+
+    deleteMovie() {
+        MoviesActionCreator.deleteMovie(this.props.match.params.id);
     }
 
     findMovie() {
@@ -80,7 +82,7 @@ export default class Movie extends React.Component {
                 <button className="btn btn-default" onClick={this.openEditionForm.bind(this)}>
                     <i className="glyphicon glyphicon-pencil" />
                 </button>
-                <button className="btn btn-danger" onClick={() => this.context.onMovieDeletion(data.id)}>
+                <button className="btn btn-danger" onClick={() => this.deleteMovie(data.id)}>
                     <i className="glyphicon glyphicon-trash"/>
                 </button>
             </div>

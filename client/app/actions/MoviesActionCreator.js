@@ -35,3 +35,12 @@ export function addMovie(movie) {
         });
     });
 }
+
+export function deleteMovie(id) {
+    MovieApi.removeMovie(id).then(() => {
+        dispatcher.dispatch({
+            actionType : actionTypes.DELETE_MOVIE,
+            movieId : id
+        });
+    });
+}

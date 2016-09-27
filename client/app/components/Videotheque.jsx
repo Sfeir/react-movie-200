@@ -15,8 +15,6 @@ export default class Videotheque extends React.Component {
     };
 
     static childContextTypes = {
-        onMovieDeletion : PropTypes.func,
-        onMovieFormSaved : PropTypes.func,
         onMovieModification : PropTypes.func
     };
 
@@ -27,8 +25,6 @@ export default class Videotheque extends React.Component {
 
     getChildContext() {
         return {
-            onMovieDeletion : this.onMovieDeletion.bind(this),
-            onMovieFormSaved : this.addMovie.bind(this),
             onMovieModification : this.onMovieModification.bind(this)
         };
     }
@@ -44,29 +40,6 @@ export default class Videotheque extends React.Component {
 
     componentWillUnmount() {
         MoviesStore.removeChangeListener(this.updateMovies);
-    }
-
-    onMovieDeletion(movieId) {
-        MovieApi.removeMovie(movieId).then(() => {
-            const filteredMovieList = this.state.movies.filter(movie => movie.id !== movieId);
-            this.setState({
-                movies : filteredMovieList
-            });
-
-            this.context.router.history.push('/movies');
-        });
-    }
-
-    addMovie(movie) {
-        MovieApi.addMovie(movie).then(movie => {
-            const newMovieList = this.state.movies.concat([movie]);
-
-            this.setState({
-                movies : newMovieList
-            });
-
-            this.context.router.history.push('/movies');
-        });
     }
 
     onMovieModification(newData) {
