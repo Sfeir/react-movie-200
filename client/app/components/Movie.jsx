@@ -9,6 +9,7 @@ import * as MoviesActionCreator from '../actions/MoviesActionCreator';
 export default class Movie extends React.Component {
 
     static contextTypes = {
+        router : PropTypes.object,
         onMovieModification : PropTypes.func
     };
 
@@ -45,6 +46,8 @@ export default class Movie extends React.Component {
 
     deleteMovie() {
         MoviesActionCreator.deleteMovie(this.props.match.params.id);
+
+        this.context.router.history.replace('/movies');
     }
 
     findMovie() {
