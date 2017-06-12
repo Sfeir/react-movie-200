@@ -1,53 +1,97 @@
 var webpack = require('webpack'),
-    path = require('path');
+    path = require('path'),
+    CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     cache: true,
-    debug: true,
     devtool: 'inline-source-map',
-    entry: [
-        'webpack/hot/dev-server',
-        'webpack-dev-server/client?http://localhost:8080',
-        path.resolve(__dirname, 'app/App.jsx'),
-        path.resolve(__dirname, 'index.html'),
-        'babel-polyfill',
-        'whatwg-fetch'
-    ],
+    entry: {
+        bundle : path.resolve(__dirname, 'app/App.jsx'),
+    },
     resolve:   {
-        packageAlias: 'browser',
-        root:       path.join( __dirname, 'app' ),
-        extensions: ['', '.js', '.jsx']
+        aliasFields: ['browser'],
+        modules: [
+            path.join( __dirname, 'app' ),
+            'node_modules'
+        ],
+        extensions: ['.js', '.jsx']
     },
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     plugins: [
+        new webpack.LoaderOptionsPlugin({
+            debug: true
+        }),
+        // We could also use HtmlWebpackPlugin, instead of make a copy of the index.html
+        new CopyWebpackPlugin([{
+            from: 'index.html'
+        }]),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin()
     ],
     module: {
-        loaders: [{
+        rules: [{
             test: /\.js/,
-            loaders: ['babel?presets[]=es2015,presets[]=stage-0']
-        },{
+            use: [{
+                loader: 'babel-loader',
+                options: {
+                    presets: ['es2015', 'stage-0'],
+                    cacheDirectory: true
+                }
+            }]
+        }, {
             test: /\.jsx/,
-            loaders: ['babel?presets[]=es2015,presets[]=stage-0,presets[]=react']
+            use: [{
+                loader: 'babel-loader',
+                options: {
+                    presets: ['es2015', 'stage-0', 'react'],
+                    cacheDirectory: true
+                }
+            }]
         }, {
             test: /\.(png|jpg)$/,
-            loader: 'url-loader?limit=25000'
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 25000
+                }
+            }]
         }, {
             test: /\.html$/,
-            loader: 'file-loader?name=[name].[ext]'
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]'
+                }
+            }]
         }, {
             test: /\.css$/,
-            loader: 'style-loader!css-loader?sourceMap!postcss-loader'
+            use: [{
+                loader: 'style-loader'
+            }, {
+                loader: 'css-loader',
+                options: {
+                    sourceMap: true
+                }
+            }]
         }, {
-           test:   /\.(eot|svg|ttf|otf)(\?.*)?$/,
-           loader: 'url-loader?limit=100000'
+            test:   /\.(eot|svg|ttf|otf)(\?.*)?$/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 100000
+                }
+            }]
         }, {
-           test:   /\.woff(2)?(\?.*)?$/,
-           loader: 'url-loader?limit=100000'
+            test:   /\.woff(2)?(\?.*)?$/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 100000
+                }
+            }]
         }]
     },
     devServer: {
